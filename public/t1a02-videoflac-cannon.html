@@ -1,25 +1,46 @@
 <html>
 <script>
 function mySquareFunction(){
-    let myIn01 = parseFloat(document.getElementById('myNum01').value)
-    let myAnswer = myIn01 * myIn01
-    document.getElementById('mySpan01').innerHTML = '  ' + myIn01 + ' squared = ' + myAnswer
+  let myIn01 = parseFloat(document.getElementById('myNum01').value)
+  let myAnswer = myIn01 * myIn01
+  document.getElementById('mySpan01').innerHTML = ' ' + myIn01 + ' squared = ' + myAnswer
+  if (myAnswer === 4) {
+  document.getElementById('mySpan01').innerHTML = 'You really needed to find out what 2 times 2 was?';
+  }
+
 }
 function myObject(){
- let cannon = {age: 15, height: 6.2};
- document.getElementById('mySpan02').innerHTML = 'Age: ' + cannon.age + ', Height: ' + cannon.height;
+  let cannon = {age: 15, height: 6.2};
+  document.getElementById('mySpan02').innerHTML = 'Age: ' + cannon.age + ', Height: ' + cannon.height;
+}
+
+function myArrayLoop(start, end, step) {
+  let myArray = [];
+  
+  for (let i = start; i <= end; i += step) {
+    myArray.push(i);
+  }
+  
+  document.getElementById('mySpan03').innerHTML = myArray.join(', ');
 }
 </script>
-    
-  <h2 align=center>t1a02-videoflac-cannon.html</h2>
 
-  input: <input id="myNum01" type=number value="4" ><br>
-  Event:<input type=button value="myEvent squares" onclick="{
-    mySquareFunction()
-  }"><br>
-  Output:<span id="mySpan01">...</span>
- <br> Accurate Description of me: <input type=button value="gimme the correct answer" onclick="{
-    myObject()
-  }">
+<h2 align=center>t1a02-videoflac-cannon.html</h2>
+
+input: <input id="myNum01" type=number value="4" ><br>
+Event:<input type=button value="myEvent squares" onclick="mySquareFunction()"><br>
+Output:<span id="mySpan01">...</span>
+<br> Accurate Description of me: <input type=button value="gimme the correct answer" onclick="myObject()">
 <br> Output:<span id="mySpan02">...</span>
+<br>input: <input id="myNum02" type=number value="4" >
+<br>input: <input id="myNum03" type=number value="8" >
+<br>input step: <input id="myNum04" type=number value="2" >
+
+<br> Counting By 2: <input type=button value="gimme the correct answer" onclick="myArrayLoop(parseFloat(document.getElementById('myNum02').value), 
+parseFloat(document.getElementById('myNum03').value),
+parseFloat(document.getElementById('myNum04').value)
+)">
+
+<br> Output:<span id="mySpan03">...</span>
+
 </html>
