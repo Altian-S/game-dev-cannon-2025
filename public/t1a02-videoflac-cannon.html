@@ -1,15 +1,15 @@
 <html>
 <script>
-function mySquareFunction(){
-  let myIn01 = parseFloat(document.getElementById('myNum01').value)
-  let myAnswer = myIn01 * myIn01
-  document.getElementById('mySpan01').innerHTML = ' ' + myIn01 + ' squared = ' + myAnswer
+function mySquareFunction() {
+  let myIn01 = parseFloat(document.getElementById('myNum01').value);
+  let myAnswer = myIn01 * myIn01;
+  document.getElementById('mySpan01').innerHTML = ' ' + myIn01 + ' squared = ' + myAnswer;
   if (myAnswer === 4) {
-  document.getElementById('mySpan01').innerHTML = 'You really needed to find out what 2 times 2 was?';
+    document.getElementById('mySpan01').innerHTML = 'You really needed to find out what 2 times 2 was?';
   }
-
 }
-function myObject(){
+
+function myObject() {
   let cannon = {age: 15, height: 6.2};
   document.getElementById('mySpan02').innerHTML = 'Age: ' + cannon.age + ', Height: ' + cannon.height;
 }
@@ -23,6 +23,14 @@ function myArrayLoop(start, end, step) {
   
   document.getElementById('mySpan03').innerHTML = myArray.join(', ');
 }
+
+function updateButtonValue() {
+  let newStep = document.getElementById('myNum04').value;
+  let myButton = document.getElementById('myButton01');
+  
+  // Set the button's value to the new step number
+  myButton.value = `Counting By ${newStep}`;
+}
 </script>
 
 <h2 align=center>t1a02-videoflac-cannon.html</h2>
@@ -34,13 +42,13 @@ Output:<span id="mySpan01">...</span>
 <br> Output:<span id="mySpan02">...</span>
 <br>input: <input id="myNum02" type=number value="4" >
 <br>input: <input id="myNum03" type=number value="8" >
-<br>input step: <input id="myNum04" type=number value="2" >
+<br>input step: <input id="myNum04" type=number value="2" oninput="updateButtonValue()">
 
-<br> Counting By 2: <input type=button value="gimme the correct answer" onclick="myArrayLoop(parseFloat(document.getElementById('myNum02').value), 
+<br> Counting By Steps: <input id="myButton01" type=button value="Counting By 2" onclick="myArrayLoop(parseFloat(document.getElementById('myNum02').value),
 parseFloat(document.getElementById('myNum03').value),
 parseFloat(document.getElementById('myNum04').value)
 )">
 
 <br> Output:<span id="mySpan03">...</span>
-
+<br> Hint: Try 2 times 2
 </html>
