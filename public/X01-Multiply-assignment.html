@@ -1,0 +1,17 @@
+<html>
+<script>
+    function myMultiply() {
+        let myIn01 = parseFloat(document.getElementById('myNum01').value);
+        let myIn02 = parseFloat(document.getElementById('myNum02').value);
+        let myAnswer = myIn01 * myIn02;
+
+        document.getElementById('mySpan01').innerHTML = myIn01 + ' Multiplied by ' + myIn02 + ' = ' + myAnswer;
+    }
+</script>
+
+input01:<input id="myNum01" type=number value="12"><br>
+input02:<input id="myNum02" type=number value="2"><br>
+event:<input type=button value="Calculate..." onclick="myMultiply()"><br>
+output:<span id="mySpan01">...</span>
+
+</html>
