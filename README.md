@@ -17,22 +17,12 @@ Note: If you have a link to an assignment that has not been marked, put "open" a
 
 ---      
 
-
-<details ><summary>Monday Sept 15th, 2025</summary>
-
-### Title
-1.
-1.
-1.
-
-</details>
-
 <details><summary>Tuesday Sept 16th, 2025</summary>
 
 ### Title
-1.
-1.
-1.
+1.I can understand and complete most assignments with little use of LLMS
+1.I need to learn more about javascript
+1.Im going to try and make a slot machine
 
 </details>
 
