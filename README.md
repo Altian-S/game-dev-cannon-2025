@@ -29,9 +29,10 @@ Note: If you have a link to an assignment that has not been marked, put "open" a
 <details><summary>Wed Sept 17th, 2025</summary>
 
 ### Title
-1.
-1.
-1.
+1.I can understand and complete all assignments given to me with little use of LLMS
+1.I would like to learn more about javascript
+1.Im going to make a slot machine
+1.Work on vibe code cleaning
 
 </details>
 
