@@ -1,44 +1,56 @@
-<script>
-    function button(){
-        let myIn = document.getElementById('myText01').value;
-        document.getElementById('mySpan01').innerHTML = myIn;
-    }
-    function myMultiply(){
-        let myIn01 = parseFloat(document.getElementById('myNum01').value);
-        let myIn02 = parseFloat(document.getElementById('myNum02').value);
-        let myAnswer = myIn01 * myIn02;
-        document.getElementById('mySpan02').innerHTML = myIn01 + ' Multiplied by ' + myIn02 + ' = ' + myAnswer;
-        
-        if(myAnswer === 4){
-            document.getElementById('mySpan02').innerHTML = "you really needed to know what 2 times 2 was?";
-        }
-    }
-    
-    
-    function myDivide(){
-        let myIn01 = parseFloat(document.getElementById('myNum01').value);
-        let myIn02 = parseFloat(document.getElementById('myNum02').value);
-        let myAnswer = myIn01 / myIn02;
-        document.getElementById('mySpan02').innerHTML = myIn01 + ' Divided by ' + myIn02 + ' = ' + myAnswer;
-        
-        if(myAnswer === 1){
-            document.getElementById('mySpan02').innerHTML = "you really needed to know what 2 divided by 2 was?";
-        }
-    }
-    function saveNumber(){
-        let 
-        
-        
-    }
-</script>
+<script>    
+let savedNumbers = []; 
 
+function button(){
+    let myIn = document.getElementById('myText01').value;
+    document.getElementById('mySpan01').innerHTML = myIn;
+}
+
+function myMultiply(){
+    let myIn01 = parseFloat(document.getElementById('myNum01').value);
+    let myIn02 = parseFloat(document.getElementById('myNum02').value);
+    let myAnswer = myIn01 * myIn02;
+    document.getElementById('mySpan02').innerHTML = myIn01 + ' Multiplied by ' + myIn02 + ' = ' + myAnswer;
+    
+    if(myAnswer === 4){
+        document.getElementById('mySpan02').innerHTML = "you really needed to know what 2 times 2 was?";
+    }
+}
+
+
+function myDivide(){
+    let myIn01 = parseFloat(document.getElementById('myNum01').value);
+    let myIn02 = parseFloat(document.getElementById('myNum02').value);
+    let myAnswer = myIn01 / myIn02;
+    document.getElementById('mySpan02').innerHTML = myIn01 + ' Divided by ' + myIn02 + ' = ' + myAnswer;
+    
+    if(myAnswer === 1){
+        document.getElementById('mySpan02').innerHTML = "you really needed to know what 2 divided by 2 was?";
+    }
+}
+
+function saveNumber(){
+    let mySave01 = document.getElementById('mySpan02').innerHTML;
+    
+    savedNumbers.unshift(mySave01); 
+    
+    document.getElementById('mySpan03').innerHTML = 'Saved History:';
+
+    document.getElementById('mySpan04').innerHTML = savedNumbers.join('<br>');
+} 
+</script>
 
 <h1 align=center>t1a08-in-out-cannon</h1>
 <input type="text" id="myText01" value="Super"><br>
 <span id="mySpan01">...</span><br>
 <input type="button" value="The Process" onclick="button()"><br>
-
+<br>
 <input type="number" id="myNum01" value="10"><input type="number" id="myNum02" value="2"><br>
 <span id="mySpan02">...</span><br>
 <input type="button" value="The Multiply" onclick="myMultiply()">
 <input type="button" value="The Divide" onclick="myDivide()"><br>
+
+<span id="mySpan03">...</span><br>
+<input type="button" value="Save Number" onclick="saveNumber()"><br>
+<span id='mySpan04'>...</span><br>
+ 
