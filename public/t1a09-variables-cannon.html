@@ -1,1 +1,63 @@
+<script>
+function stringAdd(){
+    let myFred = document.getElementById('myText01').value;
+    var myMary = document.getElementById('myText02').value;
+    const myOut = document.getElementById('mySpan01'); 
+    myOut.innerHTML = myFred + ' ' + myMary;
+}
+function floatAdd(){
+    let myNum01 = document.getElementById('myNum01').value;
+    var myNum02 = document.getElementById('myNum02').value;
+    let myAnswer = parseFloat(myNum01) + parseFloat(myNum02);
+    const myOut = document.getElementById('mySpan02');
+    myOut.innerHTML = myNum01 + ' + ' + myNum02 + ' = ' + myAnswer; 
+}
+function myBoolean(){
+    let myBool = document.getElementById('myBool').value;
+    let myOut = document.getElementById('mySpan03');
+    let myAnswer;
+       if (myBool.toLowerCase() === 'true' || myBool.toLowerCase() === 'false') {
+        myAnswer = 'Yes';
+    } else {
+        myAnswer = 'No';
+    }
+    
+    myOut.innerHTML = 'Is "' + myBool + '" a boolean? ' + myAnswer;
+    
+}
 
+</script>
+<h2 align=center>t1a09-variables-fred.html</h2>
+
+Show correct use of const var let and integer, character boolean float and string. <br>
+
+<h2> Concatenating (adding) strings </h2>
+
+<input id="myText01" type=text value="Weird">
++
+<input id="myText02" type=text value="Science"><br>
+<span id="mySpan01">...</span><br>
+
+<input type="button" value="add strings" onclick="stringAdd()"><br>
+<br>
+
+
+You do similar versions of this for integer character, boolean and float.<br><br>
+
+<h2>Adding Floating Point Numbers</h2>
+
+<input id="myNum01" type="text" value="3.4">
++
+<input id="myNum02" type="text" value="2.1"><br>
+<span id="mySpan02">...</span><br>
+
+<input type="button" value="add floating numbers" onclick="floatAdd()"><br>
+
+
+<h2>Testing Boolean</h2>
+
+<input id="myBool" type=text value="3.4"><br>
+
+<span id="mySpan03">...</span><br>
+
+<input type="button" value="Is It a Boolean?" onclick="myBoolean()"><br>
