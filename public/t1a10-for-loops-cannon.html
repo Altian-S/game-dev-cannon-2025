@@ -1,21 +1,28 @@
-<h2 align=center>T1a10-for-loops-cannon.html</h2>
+<h2 align="center">t1a1-for-loops-cannon</h2>
+
+<label for="loopCountInput">Loop Count:</label>
+<input type="number" id="loopCountInput" value="5"><br><br>
+
+<input type="button" value="Start Loop" style="color: crimson"onclick="myLoop()"><br><br>
+
+<div id="myDiv01">...</div>
 
 
-<input id="myNum01" type=number value="5"> <br>
-
-<input type=button value="myEvent squares" onclick="{
-let myTemp = ' '
-document.getElementById('myDiv01').innerHTML = ''
-for (x=0; x<10; x++){
-  if (x==3){
-    myTemp += x = ' third <br> '
-  } else{
-    myTemp+= x + '<br>'
-  }
-  
-}
-document.getElementById('myDiv01').innerHTML = myTemp
-}"><br>
 
 
-<div id="myDiv01">...<div>
+<script>
+    function myLoop(){
+        
+        const loopLimit = parseInt(document.getElementById('loopCountInput').value); 
+        
+        let myTemp = '';
+        
+        document.getElementById('myDiv01').innerHTML = ''; 
+
+        for (let x = 0; x < loopLimit; x++){
+            myTemp += 'loop: ' + x + '<br>';
+        }
+        
+        document.getElementById('myDiv01').innerHTML = myTemp;
+    }
+</script>
