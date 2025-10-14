@@ -10,7 +10,7 @@ Note: If you have a link to an assignment that has not been marked, put "open" a
 
 ---
 
-<details open><summary>September 2025 Journal Entries</summary>
+<details><summary>September 2025 Journal Entries</summary>
 
 ---
 
@@ -118,7 +118,7 @@ Note: If you have a link to an assignment that has not been marked, put "open" a
 
 ---
 
-<details><summary>October 2025 Journal Entries</summary>
+<details open><summary>October 2025 Journal Entries</summary>
 
 ---
 
@@ -203,12 +203,12 @@ Note: If you have a link to an assignment that has not been marked, put "open" a
 
 </details>
 
-<details><summary>Tuesday Oct 14th, 2025</summary>
+<details open><summary>Tuesday Oct 14th, 2025</summary>
 
 ### Title
-1.
-1.
-1.
+1.Completely Forgot About this (sorry mr ellis)
+1.Couldnt get the slot machine working
+1.need to complete assignments before passion projects
 
 </details>
 
