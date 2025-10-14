@@ -45,7 +45,7 @@ function myHail(){
 }
 }
 function myFreeze(){
-    if (document.getElementById('myText02').value.toLowerCase() === 'flashfreeze'||'flash freeze') {
+    if (document.getElementById('myText02').value.toLowerCase() === 'flashfreeze'|| document.getElementById('myText02').value.toLowerCase() === 'flash freeze') {
     document.getElementById('myDiv02').innerHTML = 'Correct! Flash Freeze is the right answer!';
 } else {
     document.getElementById('myDiv02').innerHTML = 'Oops... that\'s incorrect';
@@ -57,11 +57,25 @@ function myFreeze(){
 <a href="https://www.britannica.com/science/hail-meteorology">
 <img style="cursor: pointer" src="https://cdn.britannica.com/29/24029-050-5D4B63F5/thunderstorm-A-hailstone-hailstones-height-much-storm.jpg" width="500"></a></h1>
 <br><br>
-<details style="background-color: aliceblue">“Hail is frozen precipitation that can grow to very large sizes through the collection of water that freezes onto the hailstone’s surface. Hailstones begin as embryos, which include graupel or sleet, and then grow in size. Hailstones can have a variety of shapes and include lumps and bumps that may even take the shape of small spikes. Hailstones must be at least 0.2 inches in size.”<br> Fun Fact! The largest form of hail is called Gargantuan Hail, which is around 8 inches and over 1 pound! <summary style="background-color: aliceblue">Definition of hail</summary></details>
+<details style="background-color: aliceblue">“Hail is frozen precipitation that can grow to very large sizes through the collection of water that freezes onto the hailstone’s surface. Hailstones begin as embryos, which include graupel or sleet, and then grow in size. Hailstones can have a variety of shapes and include lumps and bumps that may even take the shape of small spikes. Hailstones must be at least 0.2 inches in size.”<br> Fun Fact! The largest form of hail is called Gargantuan Hail, which is around 8 inches and over 1 pound! <summary style="background-color: aliceblue; cursor: pointer">Definition of hail</summary></details>
 <br style="border-color: aliceblue">Whats the biggest form of hail called<input type="text" id="myText01" value="Type Here"><br>
 <input type="button" onclick="myHail()" value="Submit Question">  <div id="myDiv01">...</div><br><br>
-<details style="background-color: aliceblue">Hailstones are formed when raindrops are carried by thunderstorm updrafts into extremely cold areas of the atmosphere which causes the drops to freeze. Hailstones grow when liquid drops collide with the frozen drops. When the liquid drops collide, they flash freeze onto the surface of the frozen drop. When the liquid drops flash freeze it also traps a little air causing cloudiness this is why hail is white instead of clear. once the hailstone becomes too heavy for the updraft to support it falls to the ground.<summary>How Hailstones Form</summary></details><br>
+
+<details style="background-color: aliceblue">"Pea = 1/4 inch diameter<br>
+Mothball = 1/2 inch diameter<br>
+Penny = 3/4 inch diameter<br>
+Nickel = 7/8 inch<br>
+Quarter = 1 inch<br>
+Ping-Pong Ball = 1 1/2 inch<br>
+Golf Ball = 1 3/4 inches<br>
+Tennis Ball = 2 1/2 inches<br>
+Baseball = 2 3/4 inches<br>
+Tea cup = 3 inches<br>
+Softball = 4 inches<br>
+    Grapefruit = 4 1/2 inches"<br><summary style="cursor: pointer">The sizes of hail are as followed:</summary>
+</details><br><br>
+
+<details style="background-color: aliceblue">Hailstones are formed when raindrops are carried by thunderstorm updrafts into extremely cold areas of the atmosphere which causes the drops to freeze. Hailstones grow when liquid drops collide with the frozen drops. When the liquid drops collide, they flash freeze onto the surface of the frozen drop. When the liquid drops flash freeze it also traps a little air causing cloudiness this is why hail is white instead of clear. once the hailstone becomes too heavy for the updraft to support it falls to the ground.<br> Fun Fact! Hailstones 4 inches and larger can fall up to 160 Kilometers per hour! That's faster than the average Drunk Driver!<summary style="cursor: pointer">How Hailstones Form</summary></details><br>
 What happens when liquid drops collide?<input type="text" id="myText02" value="Type Here"><br>
 <input type="button" value="Submit Answer" onclick="myFreeze()">
 <div id="myDiv02">...</div>
-
