@@ -1,13 +1,25 @@
 <script>
 class myAnimal {
  constructor(passName, passAge) {
-  this.myName = passName;
-  this.myAge = passAge;
+  this.myName01 = passName;
+  this.myAge01 = passAge;
     }
 myShow(){
-    document.getElementById('myDiv01').innerHTML = 'hello ' + this.myName +'<br>'
+    document.getElementById('myDiv01').innerHTML = 'hello ' + this.myName01 +'<br>'
     }
 } // end class 
+
+class myTry {
+    constructor(passName, passAge, passStatus){
+        this.myName02 = passName
+        this.myAge02 = passAge
+        this.myStatus = passStatus
+    }
+    myShow(){
+        document.getElementById('myDiv02').innerHTML = 'Hello, Im ' + this.myName02 + ' Im ' + this.myAge02 + ' and im currently a '+ this.myStatus
+    }
+}
+
 </script>
 
 
@@ -26,8 +38,8 @@ Car Name: <input type="text" id="myText01" value="Stupid button" style="text-ali
 Car Age: <input type="number" id="myNum01" value="4" style="text-align: center" width="25"><br>
 <input type="button" value="Example Extend Class Animal" onclick="{
  class myCat extends myAnimal {
-    myShow(){
-        document.getElementById('myDiv01').innerHTML = this.myName + ' is a great car he is ' + this.myAge;
+    myShow(){                   //reasigns the myShow part of the myAnimal class
+        document.getElementById('myDiv01').innerHTML = this.myName01 + ' is a great car he is ' + this.myAge01;
         }
     }//end of extender class
  
@@ -37,5 +49,11 @@ Car Age: <input type="number" id="myNum01" value="4" style="text-align: center" 
     myPet.myShow()
                                                                 }">
 
-<div id="myDiv01">...</div>
+<div id="myDiv01">...</div><br><br>
+
+<input type="button" value="Click Me!!!!" onclick="{
+    myGuy = new myTry('Cannon', 16, 'Unemployed')
+    myGuy.myShow()
+                                                   }">
+<div id="myDiv02">...</div>
 
