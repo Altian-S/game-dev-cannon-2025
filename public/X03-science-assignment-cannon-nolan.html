@@ -20,13 +20,14 @@
     </style>
     <style>
         body {
-            color: #3900a8;
+            color: #ff0000;
         }
     </style>
     <style>
         body{
             font-family: monospace;
-            font-size: x-large
+            font-size: x-large;
+            background-color: aliceblue;
         }
     
     </style>
@@ -35,14 +36,22 @@
 </body>
 </html>
 <script>
-function myFunc(){
-    
+function myHail(){
+    if (document.getElementById('myText01').value === 'Gargantuan') {
+    document.getElementById('myDiv01').innerHTML = 'Correct! Gargantuan is the right answer!';
+} else {
+    document.getElementById('myDiv01').innerHTML = 'Oops... that\'s incorrect';
+}
 }
 </script>
-<h2 align=center style="color: aquamarine; font-size: xx-large" >Dangers Of Hail</h2>
-<h1 align=center><a href="https://www.sciencefocus.com/planet-earth/why-dont-hailstorms-last-as-long-as-rainstorms"><img alt="Text here" style="cursor: pointer"  src="https://c02.purpledshub.com/uploads/sites/41/2019/09/Screen-Shot-2019-09-24-at-11.16.35-am-48e4607.png?webp=1&w=1200" width="500"></a>
-    <a href="https://www.britannica.com/science/hail-meteorology">
-        <img style="cursor: pointer" src="https://cdn.britannica.com/29/24029-050-5D4B63F5/thunderstorm-A-hailstone-hailstones-height-much-storm.jpg" width="500"></a></h1>
+<h2 style="color: aquamarine; font-size: xx-large; text-align: center" >Dangers Of Hail</h2>
+<h1 style="text-align: center"><a href="https://www.sciencefocus.com/planet-earth/why-dont-hailstorms-last-as-long-as-rainstorms"><img alt="Text here" style="cursor: pointer"  src="https://c02.purpledshub.com/uploads/sites/41/2019/09/Screen-Shot-2019-09-24-at-11.16.35-am-48e4607.png?webp=1&w=1200" width="500"></a>
+<a href="https://www.britannica.com/science/hail-meteorology">
+<img style="cursor: pointer" src="https://cdn.britannica.com/29/24029-050-5D4B63F5/thunderstorm-A-hailstone-hailstones-height-much-storm.jpg" width="500"></a></h1>
+<br><br>
+<details style="background-color: aliceblue">“Hail is frozen precipitation that can grow to very large sizes through the collection of water that freezes onto the hailstone’s surface. Hailstones begin as embryos, which include graupel or sleet, and then grow in size. Hailstones can have a variety of shapes and include lumps and bumps that may even take the shape of small spikes. Hailstones must be at least 0.2 inches in size.”<br> Fun Fact! The largest form of hail is called Gargantuan Hail. <summary style="background-color: aliceblue">Definition of hail</summary></details>
+<br style="border-color: aliceblue">Whats the biggest form of hail called<input type="text" id="myText01" value="Type Here"><br>
+<input type="button" onclick="myHail()">  <div id="myDiv01">...</div>
 
-<br><br style="cursor: grab">
+
 
