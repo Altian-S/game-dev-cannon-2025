@@ -20,7 +20,7 @@
     </style>
     <style>
         body {
-            color: #ff0000;
+            color: #000000;
             background-color: aliceblue;
         }
     </style>
@@ -37,29 +37,44 @@
 </body>
 </html>
 <script>
-function myHail(){
+function myHail1(){
     if (document.getElementById('myText01').value.toLowerCase() === 'gargantuan') {
     document.getElementById('myDiv01').innerHTML = 'Correct! Gargantuan is the right answer!';
 } else {
     document.getElementById('myDiv01').innerHTML = 'Oops... that\'s incorrect';
 }
 }
+function myHail2(){
+    if (document.getElementById('myText02').value.toLowerCase() === 'pea') {
+        document.getElementById('myDiv02').innerHTML = 'Correct! Pea is the right answer!';
+    } else {
+        document.getElementById('myDiv02').innerHTML = 'Oops... that\s incorrect';
+    }
+}
+function myStorm(){
+    if (document.getElementById('myText04').value.toLowerCase() === 'supercell') {
+        document.getElementById('myDiv04').innerHTML = 'Correct! Supercell is the right answer!';
+    } else {
+        document.getElementById('myDiv04').innerHTML = 'Oops... that\s incorrect';
+    }
+}
 function myFreeze(){
-    if (document.getElementById('myText02').value.toLowerCase() === 'flashfreeze'|| document.getElementById('myText02').value.toLowerCase() === 'flash freeze') {
-    document.getElementById('myDiv02').innerHTML = 'Correct! Flash Freeze is the right answer!';
+    if (document.getElementById('myText03').value.toLowerCase() === 'flashfreeze'|| document.getElementById('myText03').value.toLowerCase() === 'flash freeze') {
+    document.getElementById('myDiv03').innerHTML = 'Correct! Flash Freeze is the right answer!';
 } else {
-    document.getElementById('myDiv02').innerHTML = 'Oops... that\'s incorrect';
+    document.getElementById('myDiv03').innerHTML = 'Oops... that\'s incorrect';
 }
 }
+
 </script>
-<h2 style="color: aquamarine; font-size: xx-large; text-align: center" >Dangers Of Hail</h2>
+<h2 style="color: #000000; font-size: xx-large; text-align: center" >Dangers Of Hail</h2>
 <h1 style="text-align: center"><a href="https://www.sciencefocus.com/planet-earth/why-dont-hailstorms-last-as-long-as-rainstorms"><img alt="Text here" style="cursor: pointer"  src="https://c02.purpledshub.com/uploads/sites/41/2019/09/Screen-Shot-2019-09-24-at-11.16.35-am-48e4607.png?webp=1&w=1200" width="500"></a>
 <a href="https://www.britannica.com/science/hail-meteorology">
 <img style="cursor: pointer" src="https://cdn.britannica.com/29/24029-050-5D4B63F5/thunderstorm-A-hailstone-hailstones-height-much-storm.jpg" width="500"></a></h1>
 <br><br>
-<details style="background-color: aliceblue">“Hail is frozen precipitation that can grow to very large sizes through the collection of water that freezes onto the hailstone’s surface. Hailstones begin as embryos, which include graupel or sleet, and then grow in size. Hailstones can have a variety of shapes and include lumps and bumps that may even take the shape of small spikes. Hailstones must be at least 0.2 inches in size.”<br> Fun Fact! The largest form of hail is called Gargantuan Hail, which is around 8 inches and over 1 pound! <summary style="background-color: aliceblue; cursor: pointer">Definition of hail</summary></details>
+<details style="background-color: aliceblue">“Hail is frozen precipitation that can grow to very large sizes through the collection of water that freezes onto the hailstone’s surface. Hailstones begin as embryos, which include graupel or sleet, and then grow in size. Hailstones can have a variety of shapes and include lumps and bumps that may even take the shape of small spikes. Hailstones must be at least 0.2 inches in size.”<br> Fun Fact! The largest form of hail is called Gargantuan Hail, which is around 8 inches and over 1 pound!<br> Another Fun Fact! Hailstorms and Thunderstorms are nearly Identical! Hailstorms just have hailstones inside them. <summary style="background-color: aliceblue; cursor: pointer">Definition of hail</summary></details>
 <br style="border-color: aliceblue">Whats the biggest form of hail called<input type="text" id="myText01" value="Type Here"><br>
-<input type="button" onclick="myHail()" value="Submit Question">  <div id="myDiv01">...</div><br><br>
+<input type="button" onclick="myHail1()" value="Submit Question">  <div id="myDiv01">...</div><br><br>
 
 <details style="background-color: aliceblue">"Pea = 1/4 inch diameter<br>
 Mothball = 1/2 inch diameter<br>
@@ -72,10 +87,38 @@ Tennis Ball = 2 1/2 inches<br>
 Baseball = 2 3/4 inches<br>
 Tea cup = 3 inches<br>
 Softball = 4 inches<br>
-    Grapefruit = 4 1/2 inches"<br><summary style="cursor: pointer">The sizes of hail are as followed:</summary>
-</details><br><br>
+Grapefruit = 4 1/2 inches"<br>
+Gargantuan = 8 1/2 inchese<br><summary style="cursor: pointer">The sizes of hailstones are as followed:</summary>
+</details><br>
 
-<details style="background-color: aliceblue">Hailstones are formed when raindrops are carried by thunderstorm updrafts into extremely cold areas of the atmosphere which causes the drops to freeze. Hailstones grow when liquid drops collide with the frozen drops. When the liquid drops collide, they flash freeze onto the surface of the frozen drop. When the liquid drops flash freeze it also traps a little air causing cloudiness this is why hail is white instead of clear. once the hailstone becomes too heavy for the updraft to support it falls to the ground.<br> Fun Fact! Hailstones 4 inches and larger can fall up to 160 Kilometers per hour! That's faster than the average Drunk Driver!<summary style="cursor: pointer">How Hailstones Form</summary></details><br>
-What happens when liquid drops collide?<input type="text" id="myText02" value="Type Here"><br>
+
+What is the smallest form of Hailstone<input type="text" id="myText02" value="Type Here"><br>
+<input value="Submit Answer" type="button" onclick="myHail2()"><br>
+<div id="myDiv02">...</div><br>
+
+
+<details style="background-color: aliceblue">Hailstones are formed when raindrops are carried by thunderstorm updrafts into extremely cold areas of the atmosphere which causes the drops to freeze. Hailstones grow when liquid drops collide with the frozen drops. When the liquid drops collide, they flash freeze onto the surface of the frozen drop. When the liquid drops flash freeze it also traps a little air causing cloudiness this is why hail is white instead of clear. once the hailstone becomes too heavy for the updraft to support it falls to the ground.<br><br>Hail is created in almost all severe thunderstorms but most of the time it melts before hitting the ground. however, in multi-cell thunderstorms many hailstones are produced but they are not very large because the mature stage the storm is short. In contrast supercell storms can produce big hail because they have stronger updrafts to lift the hail higher so they can accumulate more layers.<br><br>there are three basic ingredients needed to form hail: An adequate updraft, sufficient supercooled water, and a piece of ice or dust for it to grow on.<br><br> Fun Fact! Hailstones 4 inches and larger can fall up to 160 Kilometers per hour! That's faster than the average Drunk Driver!<summary style="cursor: pointer">How Hailstones Form</summary></details><br>
+What happens when liquid drops collide?<input type="text" id="myText03" value="Type Here"><br>
 <input type="button" value="Submit Answer" onclick="myFreeze()">
-<div id="myDiv02">...</div>
+<div id="myDiv03">...</div><br>
+
+What type of hailstorms produce the biggest hail?<input type="text" id="myText04" value="Type Here"><br>
+<input type="button" value="Submit Answer" onclick="myStorm()">
+<div id="myDiv04">...</div><br><br>
+
+
+<details style="background-color: aliceblue">Some Immediate dangers of hailstorms are the hailstones falling from the sky, bigger hailstones can reach 160kilometers per hour enough to kill you instantly.<br> Another less known risk possible electrocution due to the Hailstorms producing lightning so stay away from electronics <br>  Air planes are not safe during hailstorms, one of the few big crashes happened“On April 4, 1977, a Southern Airways DC-9 crashed in New Hope, Georgia. Both engines of the plane ingested hail and lost thrust. The plane crashed onto the road and burst into flames. Two of the four crew members and 60 of the 81 passengers were killed; eight others on the ground were also killed.”<summary>Dangers Of Hail</summary></details><br>
+
+Are Hailstorms a threat to airplanes?<br>
+True<input type="radio" name="truefalse" id="myRad02" value="True" onclick="">False<input type="radio" name="truefalse"id="myRad01"><br>
+<input type="button" value="Submit Answer" onclick="myFreeze()">
+<div id="myDiv05">...</div><br>
+
+<details style="background-color: aliceblue">
+1.Protect Your Head: If Caught in the middle of a hailstorm, use your arms to protect your head and neck from hailstones and quickly…<br><br>
+
+2.Seek Shelter: You should try and find shelter as soon as possible, any buildings, cars or any covered structure should be used. Don’t hide under trees, the branches likely cant handle the stress of the hailstones.<br><br>
+
+3.Stay Indoors: Once youve found shelter be careful of hazards like windows, glass doors, and skylights. Try not to be near the roof, hailstones are known for piercing through.<br><br>
+
+4.Avoid Electronics: Although more rare, hailstorms can produce lightning and your electronics can be conduits for said lightning. Better to be safe than sorry. <summary>How To Protect Yourself</summary></details><br>
