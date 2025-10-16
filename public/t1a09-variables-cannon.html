@@ -25,9 +25,19 @@ function myBoolean(){
     myOut.innerHTML = 'Is "' + myBool + '" a boolean? ' + myAnswer;
     
 }
+function myMultiply() {
+    let myNum01 = document.getElementById('myNum03').value;
+    let myNum02 = document.getElementById('myNum04').value;
+    
+    let myOut = document.getElementById('myDiv01'); 
+    
+    let mySpan = parseFloat(myNum01) * parseFloat(myNum02);
+    
+    myOut.innerHTML = myNum01 + ' Multiplied By ' + myNum02 + ' = ' + mySpan; 
+}
 
 </script>
-<h2 align=center>t1a09-variables-fred.html</h2>
+<h2 style="text-align: center">t1a09-variables-cannon.html</h2>
 
 Show correct use of const var let and integer, character boolean float and string. <br>
 
@@ -50,6 +60,21 @@ You do similar versions of this for integer character, boolean and float.<br><br
 +
 <input id="myNum02" type="text" value="2.1"><br>
 <span id="mySpan02">...</span><br>
+
+<input type="button" value="add floating numbers" onclick="floatAdd()"><br>
+
+
+<h2>Testing Boolean</h2>
+
+<input id="myBool" type=text value="3.4"><br>
+
+<span id="mySpan03">...</span><br>
+
+<input type="button" value="Is It a Boolean?" onclick="myBoolean()"><br><br>
+
+<input type="number" id="myNum03" value="2"> <input type="number" id="myNum04" value="4"><br>
+<div id="myDiv01">...</div><br>
+<input id="myMultiply1" type="button" onclick="myMultiply()">
 
 <input type="button" value="add floating numbers" onclick="floatAdd()"><br>
 
