@@ -13,8 +13,13 @@ function moveLeft(){
     const myDiv = document.getElementById('myDiv01')
     myDiv.style.left = parseInt(myDiv.style.left) + -20 +'px'
 }
+function moveNum(){
+    const myDiv = document.getElementById('myDiv01')
+    myDiv.style.left = parseInt(myDiv.style.left) + document.getElementById('myNum01').innerHTML +'px'
+}
+    
+    
 function myKeyPress(event){
-    alert('You Pressed: ${event.key}');
 }
 
 </script>
@@ -27,5 +32,6 @@ Have 8 different objects move in different ways
 
 <button onclick="moveLeft()">the left</button>
 <button onclick="movePx()" value="TO RIGHT">button</button>
-<button onclick="moveRight()">the right</button>
+<button onclick="moveRight()">the right</button><br>
+<input type="number" id="myNum01"><button onclick="moveNum()">Move Number</button>
 
