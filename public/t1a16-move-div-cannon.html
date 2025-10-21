@@ -1,1 +1,31 @@
+<body onkeypress="myKeyPress(event)">
+</body>
+<script>
+function movePx(){
+    const myDiv = document.getElementById('myDiv01')
+    myDiv.style.left = '100px'
+}
+function moveRight(){
+    const myDiv = document.getElementById('myDiv01')
+    myDiv.style.left = parseInt(myDiv.style.left) + 20 +'px'
+}
+function moveLeft(){
+    const myDiv = document.getElementById('myDiv01')
+    myDiv.style.left = parseInt(myDiv.style.left) + -20 +'px'
+}
+function myKeyPress(event){
+    alert('You Pressed: ${event.key}');
+}
+
+</script>
+
+<h2 style="text-align: center">t1a16-move-div-cannon</h2>
+
+Have 8 different objects move in different ways
+
+<div style="position: relative; left:0; right:0" id="myDiv01" >...</div>
+
+<button onclick="moveLeft()">the left</button>
+<button onclick="movePx()" value="TO RIGHT">button</button>
+<button onclick="moveRight()">the right</button>
 
