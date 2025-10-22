@@ -1,29 +1,33 @@
 <body onkeypress="myKeyPress(event)">
 </body>
 <script>
+let myTimer01
 function movePx(){
-    const myDiv = document.getElementById('myDiv01')
-    myDiv.style.left = '100px'
+    const myDiv = document.getElementById('myDiv01');
+    myDiv.style.left = '100px';
 }
 function moveRight(){
-    const myDiv = document.getElementById('myDiv01')
-    myDiv.style.left = parseInt(myDiv.style.left) + 20 +'px'
+    const myDiv = document.getElementById('myDiv01');
+    myDiv.style.left = parseInt(myDiv.style.left) + 20 +'px';
 }
 function moveLeft(){
-    const myDiv = document.getElementById('myDiv01')
-    myDiv.style.left = parseInt(myDiv.style.left) + -20 +'px'
+    const myDiv = document.getElementById('myDiv01');
+    myDiv.style.left = parseInt(myDiv.style.left) + -20 +'px';
 }
 function moveNum(){
     const myDiv = document.getElementById('myDiv01');
+    const myNum = document.getElementById('myNum01').value;
+    myDiv.style.left = parseInt(myDiv.style.left) + -myNum +'px';
+}    
+function myAutoMove(){
+    const myIm = document.getElementById('myImage01');
+    const myNum = document.getElementById('myNum01').value;
+    myIm.style.left = parseInt(myIm.style.left) + 5 +'px'
+    if (parseInt(myIm.style.left) > myNum){
+        myIm.style.left = '10px'
+    }
     
-    const currentLeft = parseInt(myDiv.style.left) || 0; 
-    
-    const moveAmount = parseInt(document.getElementById('myNum01').value); 
-    
-    myDiv.style.left = currentLeft + moveAmount + 'px';
 }
-    
-    
 function myKeyPress(event){
 }
 
@@ -38,4 +42,8 @@ Have 8 different objects move in different ways
 <button onclick="moveLeft()">the left</button>
 <button onclick="movePx()" value="TO RIGHT">button</button>
 <button onclick="moveRight()">the right</button><br>
-<input type="number" id="myNum01"><button onclick="moveNum()">Move Number</button>
+<input type="number" id="myNum01"><button onclick="moveNum()">Move Number</button><br>
+<i onclick="{
+            myTimer01 = setInterval(myAutoMove, 50)
+            }"> cant stop</i><br>
+<img src="place" id="myImage01" width="40" style="position: relative; left:0; right:0">
