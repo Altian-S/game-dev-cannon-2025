@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gemini Slot Machine</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(to bottom right, #1f2937, #0f172a);
+        }
+
+        @keyframes rapid-spin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .spinning-reel {
+            animation: rapid-spin 0.1s linear infinite;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .reel-container {
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .symbol-display {
+            font-size: 80px;
+            height: 120px;
+            line-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Lever Styles (Necessary for positioning and drag transformation) */
+        #lever-handle {
+            position: absolute;
+            right: 15px;
+            top: 25%;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: linear-gradient(to bottom, #ef4444, #b91c1c);
+            border: 3px solid #fca5a5;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.05s ease-out, background 0.2s, opacity 0.2s;
+            outline: none;
+            z-index: 10;
+            cursor: pointer;
+            transform: translateY(0);
+        }
+
+        #lever-arm {
+            position: absolute;
+            right: 30px;
+            top: 25%;
+            width: 10px;
+            height: 150px;
+            background-color: #4b5563;
+            border-radius: 5px;
+            z-index: 5;
+            transition: transform 0.05s ease-out;
+            transform: translateY(0);
+        }
+
+
+        #lever-handle:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: linear-gradient(to bottom, #4b5563, #1f2937);
+            border-color: #4b5563;
+        }
+        #lever-handle:disabled + #lever-arm {
+            background-color: #374151;
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Overall Container to hold the Machine Body and the Lever Side-by-Side --><div id="machine-wrapper" class="flex items-stretch w-full max-w-lg">
+
+        <!-- Main Machine Body (Left Side) --><div id="slot-machine" class="flex-grow bg-gray-800 shadow-2xl rounded-l-2xl p-6 border-4 border-yellow-500 border-r-0">
+
+            <!-- Header and Title --><h1 class="text-3xl font-black text-center text-yellow-400 mb-2">
+                GEMINI JACKPOT
+            </h1>
+            <p class="text-sm text-center text-gray-400 mb-6">
+                Drag the lever down to pull!
+            </p>
+
+            <!-- Status & Balance Panel --><div class="flex justify-between items-center mb-4 p-3 bg-gray-900 rounded-lg shadow-inner border border-gray-700">
+                <div class="text-center">
+                    <span class="text-xs font-medium text-gray-400 block">BALANCE</span>
+                    <span id="balance" class="text-2xl font-extrabold text-green-400 block">$1,000</span>
+                </div>
+                <div class="text-center">
+                    <span class="text-xs font-medium text-gray-400 block">CURRENT BET</span>
+                    <input type="number" id="bet-amount" value="50" min="50" step="50"
+                           class="w-24 text-center bg-gray-700 text-yellow-300 border border-gray-600 rounded-md p-1 focus:ring-yellow-500 focus:border-yellow-500 transition duration-150">
+                </div>
+            </div>
+
+            <!-- Reel Display Area --><div class="flex justify-around items-center bg-gray-900 p-4 rounded-xl border-4 border-gray-700 shadow-2xl mb-6">
+                <div class="reel-container w-1/3 mx-1 bg-gray-700 rounded-lg shadow-inner">
+                    <div id="reel1" class="symbol-display text-white">?</div>
+                </div>
+                <div class="reel-container w-1/3 mx-1 bg-gray-700 rounded-lg shadow-inner">
+                    <div id="reel2" class="symbol-display text-white">?</div>
+                </div>
+                <div class="reel-container w-1/3 mx-1 bg-gray-700 rounded-lg shadow-inner">
+                    <div id="reel3" class="symbol-display text-white">?</div>
+                </div>
+            </div>
+
+            <!-- Message Area --><div id="message-box" class="mt-4 p-3 text-center rounded-lg min-h-[40px] text-lg font-bold text-gray-200 bg-gray-700 transition duration-300">
+                Ready to play!
+            </div>
+
+            <!-- Payout Table --><div class="mt-6 text-gray-400 text-sm">
+                <h3 class="text-lg font-bold text-yellow-400 mb-2">Payouts</h3>
+                <ul class="grid grid-cols-2 gap-2">
+                    <li class="flex justify-between"><span>3x 💎 Diamond:</span> <span class="text-green-300">100x Bet</span></li>
+                    <li class="flex justify-between"><span>3x 7️⃣ Seven:</span> <span class="text-green-300">50x Bet</span></li>
+                    <li class="flex justify-between"><span>3x ⭐ Star:</span> <span class="text-green-300">20x Bet</span></li>
+                    <li class="flex justify-between"><span>3x 🍋 Lemon:</span> <span class="text-green-300">10x Bet</span></li>
+                    <li class="flex justify-between"><span>3x 🍒 Cherry:</span> <span class="text-green-300">5x Bet</span></li>
+                    <li class="flex justify-between col-span-2"><span>Any 2x 7️⃣ Seven:</span> <span class="text-green-300">2x Bet</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Lever Mechanism (Right Side) --><div id="lever-mechanism" class="w-24 bg-gray-900 rounded-r-2xl border-4 border-yellow-500 border-l-0 relative flex-shrink-0">
+            <!-- Vertical arm for the lever --><div id="lever-arm"></div>
+            <!-- The handle itself (acts as the button) --><button id="lever-handle" aria-label="Pull to Spin"></button>
+        </div>
+    </div>
+
+    <script>
+        // Game Configuration
+        const SYMBOLS = [
+            { symbol: '🍒', weight: 40, payout: 5 },
+            { symbol: '🍋', weight: 30, payout: 10 },
+            { symbol: '⭐', weight: 20, payout: 20 },
+            { symbol: '7️⃣', weight: 8, payout: 50 },
+            { symbol: '💎', weight: 2, payout: 100 }
+        ];
+
+        // DOM Elements
+        const balanceDisplay = document.getElementById('balance');
+        const betInput = document.getElementById('bet-amount');
+        const leverHandle = document.getElementById('lever-handle');
+        const leverArm = document.getElementById('lever-arm');
+        const messageBox = document.getElementById('message-box');
+        const reels = [
+            document.getElementById('reel1'),
+            document.getElementById('reel2'),
+            document.getElementById('reel3')
+        ];
+
+        // Game State
+        let balance = 1000;
+        let isSpinning = false;
+        const SPIN_DURATION_MS = 2000; // Total spin time
+
+        // Drag State
+        let isDragging = false;
+        let startDragY = 0;
+        const MAX_PULL_DISTANCE = 80; // Maximum distance the lever can be pulled down (in pixels)
+        const SPIN_THRESHOLD = 60;   // Minimum distance the lever must be pulled to trigger a spin
+
+        // --- Utility Functions ---
+
+        /**
+         * Selects a random symbol based on defined weights.
+         * @returns {string} The selected symbol emoji.
+         */
+        function getRandomSymbol() {
+            const totalWeight = SYMBOLS.reduce((sum, item) => sum + item.weight, 0);
+            let random = Math.floor(Math.random() * totalWeight);
+
+            for (const item of SYMBOLS) {
+                if (random < item.weight) {
+                    return item.symbol;
+                }
+                random -= item.weight;
+            }
+            return '🍒';
+        }
+
+        /**
+         * Updates the UI elements (Balance, Reels, Message).
+         * @param {string} message - Message to display in the message box.
+         * @param {boolean} win - True if the message is a winning message.
+         */
+        function updateUI(message, win = false) {
+            balanceDisplay.textContent = `$${balance.toLocaleString()}`;
+            messageBox.textContent = message;
+
+            // Update message box style based on win/loss
+            if (win) {
+                messageBox.classList.remove('bg-gray-700', 'text-gray-200', 'bg-red-600');
+                messageBox.classList.add('bg-green-600', 'text-white');
+            } else if (message.includes('LOST')) {
+                 messageBox.classList.remove('bg-gray-700', 'text-gray-200', 'bg-green-600');
+                 messageBox.classList.add('bg-red-600', 'text-white');
+            } else {
+                messageBox.classList.remove('bg-green-600', 'bg-red-600', 'text-white');
+                messageBox.classList.add('bg-gray-700', 'text-gray-200');
+            }
+        }
+
+        /**
+         * Checks the three final symbols for winning combinations.
+         * @param {string[]} result - Array of 3 symbols.
+         * @returns {number} The multiplier for the bet.
+         */
+        function checkWin(result) {
+            const [r1, r2, r3] = result;
+
+            // 1. Triple Match (Highest Payout)
+            if (r1 === r2 && r2 === r3) {
+                const winningSymbol = SYMBOLS.find(s => s.symbol === r1);
+                return winningSymbol ? winningSymbol.payout : 0;
+            }
+
+            // 2. Two Sevens Match (Small Payout)
+            const sevenCount = result.filter(s => s === '7️⃣').length;
+            if (sevenCount === 2) {
+                return 2; // 2x bet
+            }
+
+            // 3. No Win
+            return 0;
+        }
+
+        /**
+         * Simulates the spinning and stopping of a single reel.
+         * @param {HTMLElement} reelElement - The reel's DOM element.
+         * @param {number} delay - The delay before this reel stops.
+         * @returns {Promise<string>} A promise that resolves with the final symbol.
+         */
+        function spinReel(reelElement, delay) {
+            return new Promise(resolve => {
+                // Start the spinning animation
+                reelElement.classList.add('spinning-reel');
+                reelElement.textContent = '🎰'; // Show a generic spinning icon
+
+                setTimeout(() => {
+                    // Stop the spinning
+                    reelElement.classList.remove('spinning-reel');
+                    const finalSymbol = getRandomSymbol();
+                    reelElement.textContent = finalSymbol;
+                    resolve(finalSymbol);
+                }, delay);
+            });
+        }
+
+        // --- Lever Control Functions ---
+
+        /**
+         * Visually sets the position of the lever handle and arm.
+         * @param {number} pullDistance - The vertical distance (in pixels) to pull the lever.
+         */
+        function setLeverPosition(pullDistance) {
+            // Clamp the distance between 0 and MAX_PULL_DISTANCE
+            const clampedPull = Math.max(0, Math.min(pullDistance, MAX_PULL_DISTANCE));
+            
+            // Adjust the arm's scale and position to follow the handle
+            const armScaleY = 1 + (clampedPull / MAX_PULL_DISTANCE) * 0.3; // Stretches arm up to 30%
+            const armTranslateY = clampedPull * 0.5; // Moves arm down slightly less than handle
+
+            leverHandle.style.transform = `translateY(${clampedPull}px)`;
+            leverArm.style.transform = `scaleY(${armScaleY}) translateY(${armTranslateY}px)`;
+        }
+
+        /**
+         * Resets the lever's visuals to the starting position.
+         */
+        function resetLeverVisuals() {
+            setLeverPosition(0);
+        }
+
+        /**
+         * Starts the dragging process.
+         * @param {MouseEvent} e - The mousedown event.
+         */
+        function startDrag(e) {
+            if (isSpinning || leverHandle.disabled) return;
+            isDragging = true;
+            startDragY = e.clientY;
+            // Add a class to body or wrapper to change cursor during drag if desired
+            document.body.style.cursor = 'grabbing';
+        }
+
+        /**
+         * Handles the dragging motion.
+         * @param {MouseEvent} e - The mousemove event.
+         */
+        function doDrag(e) {
+            if (!isDragging) return;
+            const currentPull = e.clientY - startDragY;
+            setLeverPosition(currentPull);
+        }
+
+        /**
+         * Ends the dragging process and potentially triggers a spin.
+         */
+        function endDrag() {
+            if (!isDragging) return;
+
+            document.body.style.cursor = 'default';
+            isDragging = false;
+
+            const finalPull = parseFloat(leverHandle.style.transform.match(/translateY\(([^)]+)px/)?.[1] || 0);
+
+            if (finalPull >= SPIN_THRESHOLD) {
+                // Trigger the spin if pulled past the threshold
+                spin();
+            } else {
+                // Reset visuals if pull was not enough
+                resetLeverVisuals();
+                updateUI('Not pulled hard enough! Try a full pull.');
+            }
+        }
+
+
+        // --- Main Game Loop ---
+
+        async function spin() {
+            if (isSpinning) return;
+
+            const bet = parseInt(betInput.value);
+
+            // 1. Validation Checks
+            if (isNaN(bet) || bet < 50) {
+                resetLeverVisuals();
+                return updateUI('Please enter a valid bet (min $50).');
+            }
+            if (balance < bet) {
+                resetLeverVisuals();
+                return updateUI(`Insufficient funds! Need $${bet - balance} more.`);
+            }
+
+            // 2. Start Spin
+            isSpinning = true;
+            leverHandle.disabled = true;
+
+            balance -= bet; // Deduct bet immediately
+            updateUI('SPINNING...');
+            balanceDisplay.textContent = `$${balance.toLocaleString()}`; // Update deducted balance
+
+            // 3. Kick off reels with staggered stop times
+            const stopDelays = [
+                SPIN_DURATION_MS * 0.7, // Reel 1 stops first (1400ms)
+                SPIN_DURATION_MS * 0.85, // Reel 2 stops second (1700ms)
+                SPIN_DURATION_MS * 1.0 // Reel 3 stops last (2000ms)
+            ];
+
+            const [result1, result2, result3] = await Promise.all([
+                spinReel(reels[0], stopDelays[0]),
+                spinReel(reels[1], stopDelays[1]),
+                spinReel(reels[2], stopDelays[2])
+            ]);
+
+            const finalResult = [result1, result2, result3];
+
+            // 4. Check Results
+            const multiplier = checkWin(finalResult);
+
+            if (multiplier > 0) {
+                const winnings = bet * multiplier;
+                balance += winnings;
+                updateUI(`JACKPOT! You won $${winnings.toLocaleString()} (${multiplier}x bet)!`, true);
+            } else {
+                updateUI(`No match. You LOST $${bet}. Try again!`, false);
+            }
+
+            // 5. Finalize State
+            isSpinning = false;
+            leverHandle.disabled = false;
+            resetLeverVisuals(); // Snap back after spin
+            updateUI(messageBox.textContent, multiplier > 0); // Re-apply color for win/loss
+        }
+
+        // --- Initialization ---
+
+        window.onload = () => {
+            // Setup Drag Listeners
+            leverHandle.addEventListener('mousedown', startDrag);
+            // Listeners for mousemove and mouseup need to be on the window/document to track movement outside the lever area
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', endDrag);
+
+            // Setup Touch Listeners for mobile interaction
+            leverHandle.addEventListener('touchstart', (e) => {
+                // Prevent scrolling when touching the lever
+                e.preventDefault();
+                startDrag({ clientY: e.touches[0].clientY });
+            }, { passive: false });
+
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    doDrag({ clientY: e.touches[0].clientY });
+                }
+            }, { passive: false });
+
+            document.addEventListener('touchend', endDrag);
+
+
+            // Set up local storage for persistence
+            const savedBalance = localStorage.getItem('geminiSlotBalance');
+            if (savedBalance && !isNaN(parseInt(savedBalance, 10))) {
+                balance = parseInt(savedBalance, 10);
+            }
+            updateUI('Drag the lever to start!');
+        };
+
+        // Save balance on before unloading
+        window.addEventListener('beforeunload', () => {
+             localStorage.setItem('geminiSlotBalance', balance.toString());
+        });
+
+    </script>
+</body>
+</html>
