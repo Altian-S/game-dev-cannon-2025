@@ -1,27 +1,99 @@
-<script>
-  let myArray = new Array()
 
-  myArray[0] = Duran Duran
-  myArray[1] = Shocore
-  myArray[2] = Oingo Boingo
+    function updateAdjustArray(){
+        let myAdjustmentValues = []; 
+        myAdjustmentValues.push(document.getElementById("myText02").value);
+        myAdjustmentValues.push(document.getElementById("myText03").value);
 
-  function myExample(){
-    let myMax = document.getElementById('myDiv01').value
-    let mySum = ''
-    document.getElementById('myDiv01').innerHTML = ' '
+        let myMax = myAdjustmentValues.length;
+        let mySum = '';
+        document.getElementById('myDiv02').innerHTML = '';
 
-    for (let myLoop=0; myLoop < myMax; myLoop++){
-      mySum += 'Loop #:' + myLoop + ' Array Entry: ' + myArray[myLoop] = '<br>'  
+        for (let myLoop = 0; myLoop < myMax; myLoop++){
+            mySum += 'Loop #:' + myLoop + ' Array Entry: ' + myAdjustmentValues[myLoop] + '<br>';
+        }
+        document.getElementById('myDiv02').innerHTML = mySum;
     }
-    document.getElementById('myDiv01').innerHTML = mySum
-  }
+
+
+    function displayArray(arr, outputDivId) {
+        let mySum = '';
+        document.getElementById(outputDivId).innerHTML = '';
+        
+        for (let myLoop = 0; myLoop < arr.length; myLoop++){
+            mySum += 'Loop #:' + myLoop + ' Array Entry: ' + arr[myLoop] + '<br>';
+        }
+        document.getElementById(outputDivId).innerHTML = mySum;
+    }
+
+    function showNumbers() {
+        displayArray(numberArray, 'myDiv03');
+    }
+
+    function showColors() {
+        displayArray(colorArray, 'myDiv04');
+    }
+
+    function showCountries() {
+        displayArray(countryArray, 'myDiv05');
+    }
+    
+    function showBooleans() {
+        displayArray(booleanArray, 'myDiv06');
+    }
+    
+    function showPlanets() {
+        displayArray(planetArray, 'myDiv07');
+    }
+    
+    function showSeasons() {
+        displayArray(seasonArray, 'myDiv08');
+    }
+
+    function showFruits() {
+        displayArray(fruitArray, 'myDiv09');
+    }
 </script>
+<h2 style="text-align:center">t1a11-array-loop-cannon</h2>
 
-<h2 style="text-align:center"> t1a11-array-loop-cannon</h2>
+<h3>Bands Array (Fixed)</h3>
+Max Loop Count <input type="text" id="myText01" value="3">
+<input type="button" value="Show Bands" onClick="myExample()"><br>
+<div id="myDiv01">...</div>
+<br>
 
-Max Array Entry <input type="text" id"myText01" value="3"><br>
+<h3>Adjustable Array</h3>
+<input type="text" id="myText02" value="Example1">
+<input type="text" id="myText03" value="Example2">
+<input type="button" value="Show Adjustable" onClick="updateAdjustArray()"><br>
+<div id="myDiv02">...</div>
+<br>
 
-<input type="button" value="Example onClick" onClick="myExample()"><br>
-<div id="myDiv01">...</div><br>
+<h3>New Arrays</h3>
 
-do atleast 7 other arrays
+<input type="button" value="Show Numbers" onClick="showNumbers()"><br>
+<div id="myDiv03">...</div>
+<br>
+
+<input type="button" value="Show Colors" onClick="showColors()"><br>
+<div id="myDiv04">...</div>
+<br>
+
+<input type="button" value="Show Countries" onClick="showCountries()"><br>
+<div id="myDiv05">...</div>
+<br>
+
+<input type="button" value="Show Booleans" onClick="showBooleans()"><br>
+<div id="myDiv06">...</div>
+<br>
+
+<input type="button" value="Show Planets" onClick="showPlanets()"><br>
+<div id="myDiv07">...</div>
+<br>
+
+<input type="button" value="Show Seasons" onClick="showSeasons()"><br>
+<div id="myDiv08">...</div>
+<br>
+
+<input type="button" value="Show Fruits" onClick="showFruits()"><br>
+<div id="myDiv09">...</div>
+<br>
