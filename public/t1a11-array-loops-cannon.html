@@ -1,1 +1,27 @@
-<h2> Needs to be Finished </h2>
+<script>
+  let myArray = new Array()
+
+  myArray[0] = Duran Duran
+  myArray[1] = Shocore
+  myArray[2] = Oingo Boingo
+
+  function myExample(){
+    let myMax = document.getElementById('myDiv01').value
+    let mySum = ''
+    document.getElementById('myDiv01').innerHTML = ' '
+
+    for (let myLoop=0; myLoop < myMax; myLoop++){
+      mySum += 'Loop #:' + myLoop + ' Array Entry: ' + myArray[myLoop] = '<br>'  
+    }
+    document.getElementById('myDiv01').innerHTML = mySum
+  }
+</script>
+
+<h2 style="text-align:center"> t1a11-array-loop-cannon</h2>
+
+Max Array Entry <input type="text" id"myText01" value="3"><br>
+
+<input type="button" value="Example onClick" onClick="myExample()"><br>
+<div id="myDiv01">...</div><br>
+
+do atleast 7 other arrays
