@@ -1,10 +1,11 @@
 <h1 align=center>t1a12-events-cannon.html</h1>
 
 you make at least 8 HTMLevents using different HTML tags<br>
+To see the Event's working use Ctrl-Shift-i<br>
 
 On Click<button onclick="{console.log('hi')}">ctrl-shift-i for console</button><br><br>
 
-Mouse Over<input type=button value="mouseOver" onmouseover="{console.log('hi 2')}"><br><br>
+Mouse Over <i value="mouseOver" onmouseover="{console.log('hi 2')}">Mouse Over</i><br><br>
 
 Double Click<input type=button value="Double Click" ondblclick="{console.log('hi 3')}"><br><br>
 
@@ -14,4 +15,25 @@ Keypress <input type="text" onkeypress="{console.log('hi 5')}"><br><br>
 
 On Focus/ On Blur<input type="color" onfocus="{console.log('hi 6')}" onblur="{console.log('hi 7')}"><br><br>
 
-On Mouse Wheel <input type="range" onmousewheel="{console.log('hi 8')}"><br><br>
+On Mouse Wheel <input type="range" min="0" max="100" value="50" step="5" id="myRange" onwheel="myAdjustRangeValue(event)"><br><br>
+
+<script>
+    function myAdjustRangeValue(e) {
+        if (e) {
+            e.preventDefault(); 
+        }
+
+        const slider = e.target;
+        
+        
+        const direction = e.deltaY || -e.wheelDelta; 
+
+        if (direction < 0) {
+            {console.log('hi 8')}
+            slider.stepUp();
+        } else {
+            {console.log('hi 9')}
+            slider.stepDown();
+        }
+    }
+</script>
