@@ -1,3 +1,24 @@
+<script>
+    const bandArray = ["Duran Duran", "Shocore", "Oingo Boingo", "The Cure", "Joy Division"];
+    const numberArray = [10, 20, 30, 40, 50];
+    const colorArray = ["Red", "Green", "Blue", "Yellow"];
+    const countryArray = ["Canada", "USA", "Mexico"];
+    const booleanArray = [true, false, true, true];
+    const planetArray = ["Mars", "Venus", "Jupiter", "Saturn"];
+    const seasonArray = ["Spring", "Summer", "Autumn", "Winter"];
+    const fruitArray = ["Apple", "Orange", "Banana"];
+
+    function myExample(){
+        let myMax = parseInt(document.getElementById('myText01').value);
+        let mySum = '';
+        document.getElementById('myDiv01').innerHTML = '';
+
+        for (let myLoop = 0; myLoop < myMax && myLoop < bandArray.length; myLoop++){
+            mySum += 'Loop #:' + myLoop + ' Array Entry: ' + bandArray[myLoop] + '<br>';
+        }
+        document.getElementById('myDiv01').innerHTML = mySum;
+    }
+
 
     function updateAdjustArray(){
         let myAdjustmentValues = []; 
