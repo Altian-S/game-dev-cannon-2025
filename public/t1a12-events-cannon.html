@@ -3,19 +3,23 @@
 you make at least 8 HTMLevents using different HTML tags<br>
 To see the Event's working use Ctrl-Shift-i<br>
 
-On Click<button onclick="{console.log('hi')}">ctrl-shift-i for console</button><br><br>
+On Click<button onclick="{
+    document.getElementById('myDiv02').innerHTML = 'Hi 1';
+    }">ctrl-shift-i for console</button><div id="myDiv02">...</div><br><br>
 
-Mouse Over <i value="mouseOver" onmouseover="{console.log('hi 2')}">Mouse Over</i><br><br>
+Mouse Over <button value="mouseOver" onmouseover="{
+    document.getElementById('myDiv03').innerHTML = 'Hi 2'
+    }">Mouse Over</button><div id="myDiv03">...</div><br><br>
 
-Double Click<input type=button value="Double Click" ondblclick="{console.log('hi 3')}"><br><br>
+Double Click<input type=button value="Double Click" ondblclick="document.getElementById('myDiv04').innerHTML = 'Hi 3'"><div id="myDiv04">...</div><br><br>
 
-On Change<input type="radio" onchange="{console.log('hi 4')}"><br><br>
+On Change<input type="radio" onchange="{document.getElementById('myDiv05').innerHTML = 'Hi 4'}"><div id="myDiv05">...</div><br><br>
 
-Keypress <input type="text" onkeypress="{console.log('hi 5')}"><br><br>
+Keypress <input type="text" onkeypress="{document.getElementById('myDiv06').innerHTML = 'Hi 5'}"><div id="myDiv06">...</div><br><br>
 
-On Focus/ On Blur<input type="color" onfocus="{console.log('hi 6')}" onblur="{console.log('hi 7')}"><br><br>
+On Focus/ On Blur<input type="color" onfocus="{document.getElementById('myDiv07').innerHTML = 'Hi 6'}" onblur="{document.getElementById('myDiv07').innerHTML = 'Hi 7'}"><div id="myDiv07">...</div><br><br>
 
-On Mouse Wheel <input type="range" min="0" max="100" value="50" step="5" id="myRange" onwheel="myAdjustRangeValue(event)"><br><br>
+On Mouse Wheel <input type="range" min="0" max="100" value="50" step="5" id="myRange" onwheel="myAdjustRangeValue(event)"><div id="myDiv08">...</div><br><br>
 
 <script>
     function myAdjustRangeValue(e) {
@@ -29,10 +33,10 @@ On Mouse Wheel <input type="range" min="0" max="100" value="50" step="5" id="myR
         const direction = e.deltaY || -e.wheelDelta; 
 
         if (direction < 0) {
-            {console.log('hi 8')}
+            {document.getElementById('myDiv08').innerHTML = 'Hi 8'}
             slider.stepUp();
         } else {
-            {console.log('hi 9')}
+            {document.getElementById('myDiv08').innerHTML = 'Hi 9'}
             slider.stepDown();
         }
     }
