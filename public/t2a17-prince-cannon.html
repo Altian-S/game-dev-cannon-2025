@@ -8,6 +8,9 @@
         /* Minimal styling to ensure canvas visibility and functionality */
         body {
             text-align: center;
+            /* --- FONT CHANGE TO WINGDINGS --- */
+            font-family: 'Wingdings', sans-serif;
+            /* --------------------------------- */
         }
         #paintCanvas {
             border: 1px solid #000;
@@ -43,13 +46,12 @@
 <body>
 
     <div>
+        <!-- All static English text replaced with Wingdings characters (symbols) -->
         <h1>
-            NEED TO REMOVE TEXT
+            ✈✍✌
         </h1>
         <p>
-            <span>Click and drag any dotted point</span> to change the path. 
-            <span style="font-weight: bold;">Double-click the canvas to add a new point!</span> 
-            Then press "Start Painting" to close the loop.
+            ☎✉☞
         </p>
     </div>
 
@@ -57,18 +59,20 @@
     <div>
         <canvas id="paintCanvas" width="800" height="500"></canvas>
         <div class="controls">
+            <!-- Button text remains Wingdings 'u' (play) and 'l' (reset) -->
             <button id="startButton">
-                Start Painting
+                u
             </button>
             <button id="resetButton">
-                Reset
+                l
             </button>
         </div>
     </div>
     
     <!-- Section to display coordinates (for runtime viewing) -->
     <div id="pointList" class="point-list-container">
-        <h2>Current Point Locations (Real-Time)</h2>
+        <!-- All static English text replaced with Wingdings characters (symbols) -->
+        <h2>✑✂✆</h2>
         <ul id="pointDetails">
             <!-- Coordinates will be rendered here by JavaScript -->
         </ul>
@@ -80,6 +84,11 @@
             const ctx = canvas.getContext('2d');
             const startButton = document.getElementById('startButton');
             const resetButton = document.getElementById('resetButton');
+            
+            // --- CONSTANTS FOR BUTTON TEXT ---
+            const START_TEXT = 'u';
+            const RESET_TEXT = 'l';
+
 
             // ##################################################################
             // ########### MANUAL POINT LOCATION ADJUSTMENT START ###############
@@ -201,7 +210,9 @@
 
                     // Draw labels
                     ctx.fillStyle = DOT_COLOR;
-                    ctx.font = '12px sans-serif'; // Fallback to generic font
+                    // --- FONT CHANGE FOR CANVAS TEXT ---
+                    ctx.font = '12px Wingdings, sans-serif'; 
+                    // -----------------------------------
                     ctx.textAlign = 'center';
                     ctx.fillText(point.label || `Point ${index + 1}`, point.x, point.y - 15);
                     ctx.closePath();
@@ -358,7 +369,8 @@
                 drawTargetPoints();
                 drawBrush(); // Draw the brush at the starting point
                 
-                startButton.textContent = 'Start Painting';
+                // Set the button text to the Wingdings 'Play' symbol
+                startButton.textContent = START_TEXT;
                 
                 // Update the coordinates list on reset
                 updatePointList(); 
