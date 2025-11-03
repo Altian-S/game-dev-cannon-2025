@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Paintbrush Path</title>
+    <style>
+        /* Minimal styling to ensure canvas visibility and functionality */
+        body {
+            text-align: center;
+        }
+        #paintCanvas {
+            border: 1px solid #000;
+            background-color: #fff;
+            margin-bottom: 10px;
+            /* Prevents default touch scrolling/zoom when dragging */
+            touch-action: none; 
+            cursor: pointer;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        /* Style for the new point list area */
+        .point-list-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+        .point-list-container h2 {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .point-list-container ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>
+            NEED TO REMOVE TEXT
+        </h1>
+        <p>
+            <span>Click and drag any dotted point</span> to change the path. 
+            <span style="font-weight: bold;">Double-click the canvas to add a new point!</span> 
+            Then press "Start Painting" to close the loop.
+        </p>
+    </div>
+
+    <!-- Canvas Container and Controls -->
+    <div>
+        <canvas id="paintCanvas" width="800" height="500"></canvas>
+        <div class="controls">
+            <button id="startButton">
+                Start Painting
+            </button>
+            <button id="resetButton">
+                Reset
+            </button>
+        </div>
+    </div>
+    
+    <!-- Section to display coordinates (for runtime viewing) -->
+    <div id="pointList" class="point-list-container">
+        <h2>Current Point Locations (Real-Time)</h2>
+        <ul id="pointDetails">
+            <!-- Coordinates will be rendered here by JavaScript -->
+        </ul>
+    </div>
+
+    <script>
+        (function() { // Start of IIFE to isolate scope
+            const canvas = document.getElementById('paintCanvas');
+            const ctx = canvas.getContext('2d');
+            const startButton = document.getElementById('startButton');
+            const resetButton = document.getElementById('resetButton');
+
+            // ##################################################################
+            // ########### MANUAL POINT LOCATION ADJUSTMENT START ###############
+            // ##################################################################
+            // Adjust the 'x' and 'y' coordinates below to change the initial path.
+            // You can also add more objects to this array for more points.
+            let points = [
+                { x: 150, y: 250, label: 'Point 1' },
+                { x: 250, y: 100, label: 'Point 2' },
+                { x: 350, y: 250, label: 'Point 3' },
+                { x: 450, y: 100, label: 'Point 4' },
+                { x: 550, y: 250, label: 'Point 5' },
+                { x: 650, y: 100, label: 'Point 6' },
+                { x: 750, y: 250, label: 'Point 7' },
+                { x: 750, y: 500, label: 'Point 8' },
+                { x: 150, y: 500, label: 'Point 9' },
+            ];
+            // ##################################################################
+            // ############# MANUAL POINT LOCATION ADJUSTMENT END ###############
+            // ##################################################################
+
+
+            // --- Configuration ---
+            const CANVAS_WIDTH = 800;
+            const CANVAS_HEIGHT = 500;
+            const CIRCLE_RADIUS = 10;
+            const LINE_COLOR = '#3b82f6';
+            const DOT_COLOR = '#9ca3af';
+            const SPEED_FACTOR = 0.015; // Controls how fast the circle moves (0.01 = slow, 0.1 = fast)
+            
+            // --- Painting State Variables ---
+            let isPainting = false;
+            let currentPointIndex = 0; 
+            let t = 0; // Interpolation factor (0 to 1)
+            let currentPosition = { x: points[0].x, y: points[0].y };
+            let animationFrameId = null;
+
+            // --- Dragging State Variables ---
+            let isDragging = false;
+            let draggedPointIndex = -1; // Index of the point being dragged
+
+            // --- Utility Functions ---
+            
+            // Get mouse position relative to the canvas
+            function getMousePos(event) {
+                const rect = canvas.getBoundingClientRect();
+                // Scale mouse position to match the canvas's defined width/height attributes 
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                return {
+                    x: (event.clientX - rect.left) * scaleX,
+                    y: (event.clientY - rect.top) * scaleY
+                };
+            }
+            
+            // Get touch position relative to the canvas
+            function getTouchPos(event) {
+                const rect = canvas.getBoundingClientRect();
+                const touch = event.touches[0];
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+
+                return {
+                    x: (touch.clientX - rect.left) * scaleX,
+                    y: (touch.clientY - rect.top) * scaleY
+                };
+            }
+
+            // Check if coordinates are near a point
+            function isPointHit(pos) {
+                // Use a larger radius (CIRCLE_RADIUS + 5) for easier click detection
+                const HIT_RADIUS = CIRCLE_RADIUS + 10; 
+                for (let i = 0; i < points.length; i++) {
+                    const p = points[i];
+                    // Distance formula: sqrt((x2 - x1)^2 + (y2 - y1)^2)
+                    const distance = Math.sqrt(Math.pow(pos.x - p.x, 2) + Math.pow(pos.y - p.y, 2));
+                    if (distance < HIT_RADIUS) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            // --- Display Functions ---
+            
+            // Renders the list of points and their coordinates below the canvas
+            function updatePointList() {
+                const listElement = document.getElementById('pointDetails');
+                listElement.innerHTML = ''; // Clear existing list
+
+                points.forEach((p) => {
+                    const li = document.createElement('li');
+                    // Round coordinates for cleaner display
+                    li.textContent = `${p.label}: (x: ${Math.round(p.x)}, y: ${Math.round(p.y)})`;
+                    listElement.appendChild(li);
+                });
+            }
+
+
+            // --- Drawing Functions ---
+
+            // Draw the target dotted points
+            function drawTargetPoints() {
+                points.forEach((point, index) => {
+                    ctx.beginPath();
+                    // Draw a larger, semi-transparent circle for the interactive hit area
+                    if (index === draggedPointIndex) {
+                         ctx.fillStyle = 'rgba(59, 130, 246, 0.2)'; // Blue indicator when dragging
+                         ctx.arc(point.x, point.y, CIRCLE_RADIUS + 5, 0, Math.PI * 2);
+                         ctx.fill();
+                    }
+                    
+                    // Draw the actual gray dot
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = DOT_COLOR;
+                    ctx.fill();
+
+                    // Draw labels
+                    ctx.fillStyle = DOT_COLOR;
+                    ctx.font = '12px sans-serif'; // Fallback to generic font
+                    ctx.textAlign = 'center';
+                    ctx.fillText(point.label || `Point ${index + 1}`, point.x, point.y - 15);
+                    ctx.closePath();
+                });
+            }
+
+            // Draw the path traced by the circle so far
+            function drawPath() {
+                if (currentPointIndex === 0) return;
+
+                ctx.beginPath();
+                ctx.strokeStyle = LINE_COLOR;
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+
+                // 1. Start the path at the beginning point
+                ctx.moveTo(points[0].x, points[0].y);
+
+                // 2. Draw all COMPLETED segments (up to the point before the current target)
+                const completedSegments = Math.min(currentPointIndex, points.length);
+                for (let i = 1; i < completedSegments; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
+                }
+                
+                // 3. Draw the partial segment up to the current circle position
+                ctx.lineTo(currentPosition.x, currentPosition.y);
+                
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // Draw the moving circle (the paintbrush)
+            function drawBrush() {
+                ctx.beginPath();
+                ctx.arc(currentPosition.x, currentPosition.y, CIRCLE_RADIUS, 0, Math.PI * 2);
+                ctx.fillStyle = LINE_COLOR;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // --- Animation Logic ---
+
+            function lerp(start, end, progress) {
+                return start + (end - start) * progress;
+            }
+
+            function update() {
+                // Check if painting is stopped or if we have completed the final segment (index points.length)
+                if (!isPainting || currentPointIndex > points.length) return;
+
+                // Define the start point (the point we are moving *from*)
+                const startPoint = points[currentPointIndex - 1];
+                
+                // Define the end point (the point we are moving *to*)
+                let endPoint;
+                if (currentPointIndex < points.length) {
+                    // Moving to one of the user-defined points (1, 2, 3, 4, etc.)
+                    endPoint = points[currentPointIndex];
+                } else {
+                    // currentPointIndex === points.length: Moving back to the starting point (0) to close the loop
+                    endPoint = points[0];
+                }
+
+                // Increase interpolation factor
+                t += SPEED_FACTOR;
+
+                if (t >= 1) {
+                    // Reached the current target point
+                    t = 0;
+                    currentPointIndex++;
+
+                    // Stop the animation if we just finished the loop (currentPointIndex is now points.length + 1)
+                    if (currentPointIndex > points.length) {
+                        isPainting = false;
+                        currentPosition = points[0]; // Ensure it stops exactly on the start
+                        console.log('Painting complete! Path closed.');
+                        draw();
+                        return;
+                    }
+                }
+
+                // Calculate the new position using linear interpolation (lerp)
+                currentPosition.x = lerp(startPoint.x, endPoint.x, t);
+                currentPosition.y = lerp(startPoint.y, endPoint.y, t);
+            }
+
+            function draw() {
+                // 1. Clear the canvas
+                ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                
+                // Ensure no residual glow from other operations
+                ctx.shadowBlur = 0; 
+                ctx.shadowColor = 'transparent';
+
+                // 2. Draw the fixed elements
+                drawTargetPoints();
+
+                // 3. Draw the path traced so far (line) - only if painting has started
+                if (currentPointIndex > 0) {
+                    drawPath();
+                }
+
+                // 4. Draw the moving paintbrush circle (this is drawn last so it sits on top of the line)
+                drawBrush();
+            }
+
+            function animate() {
+                update();
+                draw();
+
+                if (isPainting) {
+                    animationFrameId = requestAnimationFrame(animate);
+                }
+            }
+
+            // --- Control Handlers ---
+
+            function startPainting() {
+                if (isPainting || isDragging) return;
+                
+                // Check if already finished and reset paint state if necessary
+                if (currentPointIndex > points.length) {
+                    // Only reset the painting state, keep the user-modified path
+                    currentPointIndex = 0;
+                    t = 0;
+                    currentPosition = { x: points[0].x, y: points[0].y };
+                }
+
+                isPainting = true;
+                // The index must start at 1 because we are moving FROM index 0 TO index 1
+                currentPointIndex = 1; 
+                t = 0;
+                currentPosition = { x: points[0].x, y: points[0].y };
+                
+                // Start the loop
+                animate();
+            }
+
+            function resetCanvas() {
+                isPainting = false;
+                isDragging = false;
+                draggedPointIndex = -1;
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                
+                currentPointIndex = 0;
+                t = 0;
+                currentPosition = { x: points[0].x, y: points[0].y };
+                
+                // Clear and redraw the initial state
+                ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                drawTargetPoints();
+                drawBrush(); // Draw the brush at the starting point
+                
+                startButton.textContent = 'Start Painting';
+                
+                // Update the coordinates list on reset
+                updatePointList(); 
+            }
+
+            // --- Dragging Event Handlers ---
+
+            function handleStart(event) {
+                event.preventDefault(); // Prevent default browser actions (like scrolling/zoom)
+                
+                // Determine if it's a mouse or touch event and get normalized position
+                const pos = event.touches ? getTouchPos(event) : getMousePos(event);
+                
+                draggedPointIndex = isPointHit(pos);
+
+                if (draggedPointIndex !== -1) {
+                    // Pause painting if dragging starts
+                    if (isPainting) {
+                        isPainting = false;
+                        if (animationFrameId) {
+                            cancelAnimationFrame(animationFrameId);
+                        }
+                    }
+                    isDragging = true;
+                    // Update point position immediately
+                    points[draggedPointIndex].x = pos.x;
+                    points[draggedPointIndex].y = pos.y;
+                    
+                    draw(); // Redraw immediately to show the drag start
+                    updatePointList(); // Update coordinates
+                }
+            }
+
+            function handleMove(event) {
+                if (!isDragging) return;
+                
+                event.preventDefault(); 
+
+                const pos = event.touches ? getTouchPos(event) : getMousePos(event);
+
+                // Update the position of the dragged point
+                // Use Math.min/max to clamp the coordinates within the canvas boundaries
+                points[draggedPointIndex].x = Math.max(0, Math.min(CANVAS_WIDTH, pos.x));
+                points[draggedPointIndex].y = Math.max(0, Math.min(CANVAS_HEIGHT, pos.y));
+
+                // Redraw the canvas immediately to show the path updating
+                draw();
+                // Update the coordinates list in real-time while dragging
+                updatePointList(); 
+            }
+
+            function handleEnd(event) {
+                if (isDragging) {
+                    // Only draw one final time to ensure state is clean
+                    draw(); 
+                    updatePointList(); // Final update when drag ends
+                }
+                isDragging = false;
+                draggedPointIndex = -1;
+            }
+            
+            // --- New Double Click Handler ---
+            function handleDoubleClick(event) {
+                event.preventDefault(); 
+                
+                // Get the coordinates where the user double-clicked
+                const pos = getMousePos(event); 
+
+                // Create and add the new point to the list
+                const newPoint = { 
+                    x: Math.max(0, Math.min(CANVAS_WIDTH, pos.x)),
+                    y: Math.max(0, Math.min(CANVAS_HEIGHT, pos.y)),
+                    label: `Point ${points.length + 1}`
+                };
+                
+                points.push(newPoint);
+                
+                // Stop any animation and redraw to show the new point immediately
+                resetCanvas(); 
+                // Note: resetCanvas already calls updatePointList, so we don't need it here.
+            }
+
+
+            // --- Initialize ---
+            startButton.addEventListener('click', startPainting);
+            resetButton.addEventListener('click', resetCanvas);
+
+            // Attach Mouse Events
+            canvas.addEventListener('mousedown', handleStart);
+            canvas.addEventListener('mousemove', handleMove);
+            window.addEventListener('mouseup', handleEnd); // Use window for mouseup in case user drags outside canvas
+            canvas.addEventListener('mouseout', handleEnd);
+            
+            // Attach Double Click Event
+            canvas.addEventListener('dblclick', handleDoubleClick);
+
+            // Attach Touch Events (for mobile)
+            canvas.addEventListener('touchstart', handleStart);
+            canvas.addEventListener('touchmove', handleMove);
+            window.addEventListener('touchend', handleEnd); // Use window for touchend
+            window.addEventListener('touchcancel', handleEnd);
+            
+            // Initial setup when the script loads
+            window.onload = resetCanvas;
+        })(); // End of IIFE
+    </script>
+</body>
+</html>
