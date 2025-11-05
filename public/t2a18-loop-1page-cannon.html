@@ -1,30 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Loop Explorer Minimal</title>
-    <style>
-        
-    </style>
 </head>
 <body>
-
+    <h1 style="text-align: center">t2a18-loops-cannon.html</h1>
     <div id="loops-grid">
 
         <div>
-            <h2>Standard `for` Loop Output</h2>
+            <h2>`for` Loop Output</h2>
             <div id="for-output"></div>
         </div>
 
         <div>
-            <h2>Standard `while` Loop Output</h2>
+            <h2>`while` Loop Output</h2>
             <div id="while-output"></div>
         </div>
 
         <div>
-            <h2>Array Iteration (`for...of`) Output</h2>
+            <h2> (`for...of`) Output</h2>
             <div id="iteration-output"></div>
         </div>
         
@@ -84,7 +79,6 @@
             
             document.getElementById('for-in-output').innerText = output;
         }
-
         window.onload = function() {
             runForLoop();
             runWhileLoop();
