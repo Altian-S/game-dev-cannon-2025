@@ -1,0 +1,28 @@
+<h1 style="text-align: center">t2a20-manipulation-cannon.html</h1>
+
+String, Array, Object manipulation methods<br>
+
+<input id="myNum01" type="text" value="This Is A String :P"><br>
+<span id="mySpan01">My Shtuff</span><br>
+
+<input type="button" value=".toUpperCase()" onclick="{
+    let myIn = document.getElementById('myNum01').value
+    document.getElementById('mySpan01').innerHTML = myIn.toUpperCase();
+        }"><br> 
+<input type="button" value=".split()" onclick="{
+    let myIn = document.getElementById('myNum01').value
+    document.getElementById('mySpan01').innerHTML = myIn.split('')
+                                               }"><br>
+<input type="button" value="Object.keys()" onclick="{
+    let myObject = {
+        first: 10,
+        second: 'Hello',
+        third: true
+        }
+        let keyArray = Object.keys(myObject)
+        document.getElementById('mySpan01').innerHTML = keyArray
+}"><br>
+<input type="button" value=".toLowerCase()" onclick="{
+    let myIn = document.getElementById('myNum01').value
+    document.getElementById('mySpan01').innerHTML = myIn.toLowerCase();
+        }"><br> 
