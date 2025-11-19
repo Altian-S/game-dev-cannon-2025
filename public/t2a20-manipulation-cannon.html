@@ -3,16 +3,20 @@
 String, Array, Object manipulation methods<br>
 
 <input id="myNum01" type="text" value="This Is A String :P"><br>
-<span id="mySpan01">My Shtuff</span><br>
+
+<span id="mySpan01" style="white-space:pre;">My Shtuff</span><br>
+
 
 <input type="button" value=".toUpperCase()" onclick="{
     let myIn = document.getElementById('myNum01').value
     document.getElementById('mySpan01').innerHTML = myIn.toUpperCase();
-        }"><br> 
+        }">Converts to uppercase<br> 
+
 <input type="button" value=".split()" onclick="{
     let myIn = document.getElementById('myNum01').value
     document.getElementById('mySpan01').innerHTML = myIn.split('')
-                                               }"><br>
+                                               }"><br> Splits the string into each individual letter(or whatever value you assign it).<br>
+
 <input type="button" value="Object.keys()" onclick="{
     let myObject = {
         first: 10,
@@ -21,8 +25,23 @@ String, Array, Object manipulation methods<br>
         }
         let keyArray = Object.keys(myObject)
         document.getElementById('mySpan01').innerHTML = keyArray
-}"><br>
+}"><br> Displays the object keys but not the object value
+
 <input type="button" value=".toLowerCase()" onclick="{
     let myIn = document.getElementById('myNum01').value
     document.getElementById('mySpan01').innerHTML = myIn.toLowerCase();
-        }"><br> 
+        }">Converts all text to lowercase.<br>
+
+<input type="button" value=".trim()" onclick="{
+    let myIn = document.getElementById('myNum01').value;
+    document.getElementById('mySpan01').innerHTML = myIn.trim();
+                                                     }"> This is hard to show because due to the fact that the  automatically, but its useful for checking if someone typed the right input.<br>
+
+<input type="button" value=".includes('String')" onclick="{
+    let myIn = document.getElementById('myNum01').value;
+    if (myIn.includes('String')) {
+        document.getElementById('mySpan01').innerHTML = 'It sure does contain the word String in it';
+    } else {
+        document.getElementById('mySpan01').innerHTML = 'String not found';
+    }
+}">Checks if it includes the word 'String', some similar manipulators are .indexOf() Which finds where its located .startsWith/endsWith() which checks if it starts/ends with that number/object
