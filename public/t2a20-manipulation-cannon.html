@@ -1,6 +1,6 @@
 <h1 style="text-align: center">t2a20-manipulation-cannon.html</h1>
 
-String, Array, Object manipulation methods<br>
+String manipulation methods<br>
 
 <input id="myNum01" type="text" value="This Is A String :P"><br>
 
@@ -17,15 +17,7 @@ String, Array, Object manipulation methods<br>
     document.getElementById('mySpan01').innerHTML = myIn.split('')
                                                }"><br> Splits the string into each individual letter(or whatever value you assign it).<br>
 
-<input type="button" value="Object.keys()" onclick="{
-    let myObject = {
-        first: 10,
-        second: 'Hello',
-        third: true
-        }
-        let keyArray = Object.keys(myObject)
-        document.getElementById('mySpan01').innerHTML = keyArray
-}"><br> Displays the object keys but not the object value
+<br> Displays the object keys but not the object value
 
 <input type="button" value=".toLowerCase()" onclick="{
     let myIn = document.getElementById('myNum01').value
@@ -44,4 +36,36 @@ String, Array, Object manipulation methods<br>
     } else {
         document.getElementById('mySpan01').innerHTML = 'String not found';
     }
-}">Checks if it includes the word 'String', some similar manipulators are .indexOf() Which finds where its located .startsWith/endsWith() which checks if it starts/ends with that number/object
+}">Checks if it includes the word 'String', some similar manipulators are .indexOf() Which finds where its located .startsWith/endsWith() which checks if it starts/ends with that number/object<br><br>
+Object<br>
+<span id="mySpan02">...</span><br>
+<input type="button" value="Object.keys()" onclick="{
+        let keyArray = Object.keys(myObject)
+        document.getElementById('mySpan02').innerHTML = keyArray
+}"> Collects the keys (order) in which object values are aligned.<br>
+
+<input type="button" value="Object.values()" onclick="{    
+        let keyArray = Object.values(myObject)
+        document.getElementById('mySpan02').innerHTML = keyArray}">Gets the value of the objects.<br>
+
+<input type="button" value="Object.entries()" onclick="{   
+        let keyArray = Object.entries(myObject)
+        document.getElementById('mySpan02').innerHTML = keyArray}">gets both keys AND values of an object.<br>
+
+<input type="text" value="city" id="myNum02">This is the input for the new object value<br><input type="button" value="object.newKey = newValue;" onclick="
+    let myIn01 = document.getElementById('myNum02').value;
+    myObject.fourth = myIn01; 
+    "> Adds a new key and value to an object<br><br>
+
+
+
+
+
+
+<script>
+    let myObject={
+        first: 10,
+        second: 'hello',
+        third: true
+    }
+</script>
