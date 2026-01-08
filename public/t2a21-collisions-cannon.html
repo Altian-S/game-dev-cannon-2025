@@ -1,24 +1,41 @@
 <script>
-function myHitOther(my1, my2){
+function myHitOther(my1, my2, my3){
     
     const e1 = document.getElementById(my1);
     const e2 = document.getElementById(my2);
+    const e3 = document.getElementById(my3);
     
+    //character
     let left1 = parseInt(e1.style.left);
     let right1 = left1 + parseInt(e1.style.width);
     let top1 = parseInt(e1.style.top);    
     let bottom1 = top1 + parseInt(e1.style.height);
     
+    //lose
     let left2 = parseInt(e2.style.left);
     let right2 = left2 + parseInt(e2.style.width);
     let top2 = parseInt(e2.style.top);    
     let bottom2 = top2 + parseInt(e2.style.height);
     
+    //win
+    let left3 = parseInt(e3.style.left);
+    let right3 = left3 + parseInt(e3.style.width);
+    let top3 = parseInt(e3.style.top);    
+    let bottom3 = top3 + parseInt(e3.style.height);
     if (
         (right1 >= left2) &&             
         (bottom1 >= top2) &&
         (left1 <= right2) && 
         (top1 <= bottom2)
+    ){
+        return true;
+    }
+    return false;
+    if (
+        (right1 >= left3) &&             
+        (bottom1 >= top3) &&
+        (left1 <= right3) && 
+        (top1 <= bottom3)
     ){
         return true;
     }
@@ -34,6 +51,12 @@ function myCheckHit(){
         alert("You died.")
     }
 }
+function myCheckWin(){
+    if ( myHitOther('myImg01', 'myImg03') ){
+        console.log('you WIN - WIN detected!');
+        document.getElementById('myImg01').style.left = '20px';
+        location = 't2a13-keydown.html';
+        alert("You WON.")
 </script>
 
 <br><br><h2 style="text-align:center">t2a21-collision-cannon.html</h2>
@@ -57,3 +80,9 @@ function myCheckHit(){
     const img = document.getElementById('myImg01');
     img.style.top = (parseInt(img.style.top) || 0) - 10 + 'px';
     myCheckHit();}">
+<input type="button" value="left" onclick="{
+    // FIX 3: Added necessary quotes around 'myImg01' inside getElementById
+    const img = document.getElementById('myImg01');
+    img.style.left = parseInt(img.style.left) - 10 + 'px';
+    myCheckHit();
+}">
