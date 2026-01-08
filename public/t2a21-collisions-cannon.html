@@ -71,18 +71,22 @@ function myCheckWin(){
     const img = document.getElementById('myImg01');
     img.style.left = parseInt(img.style.left) + 10 + 'px';
     myCheckHit();
+    myCheckWin();
 }">
 <input type="button" value="Move Down" onclick="{
     const img = document.getElementById('myImg01');
     img.style.top = (parseInt(img.style.top) || 0) + 10 + 'px';
-    myCheckHit();}">
+    myCheckHit();
+    myCheckWin();}">
 <input type="button" value="Move up" onclick="{
     const img = document.getElementById('myImg01');
     img.style.top = (parseInt(img.style.top) || 0) - 10 + 'px';
-    myCheckHit();}">
+    myCheckHit();
+    myCheckWin();}">
 <input type="button" value="left" onclick="{
     // FIX 3: Added necessary quotes around 'myImg01' inside getElementById
     const img = document.getElementById('myImg01');
     img.style.left = parseInt(img.style.left) - 10 + 'px';
     myCheckHit();
+    myCheckWin();
 }">
