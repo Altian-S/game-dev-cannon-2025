@@ -44,19 +44,13 @@ function myHitOther(my1, my2, my3){
     
 
 function myCheckHit(){
-    if ( myHitOther('myImg01','myImg02') ){
+    if ( myHitOther('myImg01','myImg02', 'myImg03') ){
         console.log('you lose - collision detected!');
         document.getElementById('myImg01').style.left = '20px';
         location = 't2a13-keydown.html';
         alert("You died.")
     }
 }
-function myCheckWin(){
-    if ( myHitOther('myImg01', 'myImg03') ){
-        console.log('you WIN - WIN detected!');
-        document.getElementById('myImg01').style.left = '20px';
-        location = 't2a13-keydown.html';
-        alert("You WON.")
 </script>
 
 <br><br><h2 style="text-align:center">t2a21-collision-cannon.html</h2>
