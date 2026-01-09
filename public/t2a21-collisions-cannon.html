@@ -1,118 +1,82 @@
 <script>
-function myHitOther(my1, my2){
-    
-    const e1 = document.getElementById(my1);
-    const e2 = document.getElementById(my2);
-    const e3 = document.getElementById(my3);
-    
-    //character
+// UNIVERSAL COLLISION FUNCTION
+// This checks if any two elements are overlapping
+function isColliding(id1, id2) {
+    const e1 = document.getElementById(id1);
+    const e2 = document.getElementById(id2);
+
     let left1 = parseInt(e1.style.left);
     let right1 = left1 + parseInt(e1.style.width);
     let top1 = parseInt(e1.style.top);    
     let bottom1 = top1 + parseInt(e1.style.height);
-    
-    //lose
+
     let left2 = parseInt(e2.style.left);
     let right2 = left2 + parseInt(e2.style.width);
     let top2 = parseInt(e2.style.top);    
     let bottom2 = top2 + parseInt(e2.style.height);
-    
-    //win
-    let left3 = parseInt(e3.style.left);
-    let right3 = left3 + parseInt(e3.style.width);
-    let top3 = parseInt(e3.style.top);    
-    let bottom3 = top3 + parseInt(e3.style.height);
-    if (
-        (right1 >= left2) &&             
-        (bottom1 >= top2) &&
-        (left1 <= right2) && 
-        (top1 <= bottom2)
-    ){
-        return true;
-    }
-    return false;
-    if (
-        (right1 >= left3) &&             
-        (bottom1 >= top3) &&
-        (left1 <= right3) && 
-        (top1 <= bottom3)
-    ){
+
+    // Standard collision logic
+    if ((right1 >= left2) && (bottom1 >= top2) && (left1 <= right2) && (top1 <= bottom2)) {
         return true;
     }
     return false;
 }
-function myHitWin(my1, my3){
-        const e1 = document.getElementById(my1);
-        const e3 = document.getElementById(my3);
 
-    let left1 = parseInt(e1.style.left);
-    let right1 = left1 + parseInt(e1.style.width);
-    let top1 = parseInt(e1.style.top);    
-    let bottom1 = top1 + parseInt(e1.style.height)
-
-    let left3 = parseInt(e3.style.left);
-    let right3 = left3 + parseInt(e3.style.width);
-    let top3 = parseInt(e3.style.top);    
-    let bottom3 = top3 + parseInt(e3.style.height);
-
-    if (
-        (right1 >= left3) &&             
-        (bottom1 >= top3) &&
-        (left1 <= right3) && 
-        (top1 <= bottom3)
-    ){
-        return true;
-    }
-    return false;
-}
-    
-    
-function myCheckHit(){
-    if ( myHitOther('myImg01','myImg02',) ){
-        console.log('you lose - collision detected!');
-        document.getElementById('myImg01').style.left = '20px';
-        location = 't2a13-keydown.html';
-        alert("You died.")
+function myCheckHit() {
+    // Check collision between Player (01) and Enemy (02)
+    if (isColliding('myImg01', 'myImg02')) {
+        console.log('Collision detected!');
+        alert("You died.");
+        // Reset player position
+        document.getElementById('myImg01').style.left = '0px';
+        document.getElementById('myImg01').style.top = '0px';
     }
 }
-function myCheckWin(){
-    if ( myHitOther('myImg01','myImg03',) ){
-        console.log('you WIN - WIN detected!');
-        document.getElementById('myImg01').style.left = '20px';
-        location = 't2a13-keydown.html';
-        alert("You WON!!!?!?!?!??!")
+
+function myCheckWin() {
+    // Check collision between Player (01) and Goal (03)
+    if (isColliding('myImg01', 'myImg03')) {
+        console.log('WIN detected!');
+        alert("You WON!!!?!?!??!");
+        // Reset player position
+        document.getElementById('myImg01').style.left = '0px';
+        document.getElementById('myImg01').style.top = '0px';
     }
 }
 </script>
 
-<br><br><h2 style="text-align:center">t2a21-collision-cannon.html</h2>
+<h2 style="text-align:center">Collision Cannon</h2>
 
-<img id="myImg01" src="folder/myImage02.gif" style="position: absolute; left:0px; top:0; width: 50px; height:30px;">
+<img id="myImg01" src="folder/myImage02.gif" style="position: absolute; left:0px; top:0px; width:50px; height:30px;">
+<img id="myImg02" src="folder/myImage01.gif" style="position: absolute; left:150px; top:0px; width:50px; height:30px; ">
+<img id="myImg03" src="folder/myImage03.gif" style="position: absolute; left:300px; top:0px; width:50px; height:30px;">
 
-<img id="myImg02" src="folder/myImage01.gif" style="position: absolute; left:100px; top:0px; width:50px; height:30px;">
+<div style="margin-top: 100px;">
+    <input type="button" value="Left" onclick="{
+        const img = document.getElementById('myImg01');
+        img.style.left = (parseInt(img.style.left) || 0) - 10 + 'px';
+        myCheckHit();
+        myCheckWin();
+    }">
 
-<img id="myImg03" src="folder/myImage03.gif" style="position: absolute; left:200px; top:0px; width:50px; height:30px;">
-<input type="button" value="Move" onclick="{
-    // FIX 3: Added necessary quotes around 'myImg01' inside getElementById
-    const img = document.getElementById('myImg01');
-    img.style.left = parseInt(img.style.left) + 10 + 'px';
-    myCheckHit();
-    myCheckWin();
-}">
-<input type="button" value="Move Down" onclick="{
-    const img = document.getElementById('myImg01');
-    img.style.top = (parseInt(img.style.top) || 0) + 10 + 'px';
-    myCheckHit();
-    myCheckWin();}">
-<input type="button" value="Move up" onclick="{
-    const img = document.getElementById('myImg01');
-    img.style.top = (parseInt(img.style.top) || 0) - 10 + 'px';
-    myCheckHit();
-    myCheckWin();}">
-<input type="button" value="left" onclick="{
-    // FIX 3: Added necessary quotes around 'myImg01' inside getElementById
-    const img = document.getElementById('myImg01');
-    img.style.left = parseInt(img.style.left) - 10 + 'px';
-    myCheckHit();
-    myCheckWin();
-}">
+    <input type="button" value="Right" onclick="{
+        const img = document.getElementById('myImg01');
+        img.style.left = (parseInt(img.style.left) || 0) + 10 + 'px';
+        myCheckHit();
+        myCheckWin();
+    }">
+
+    <input type="button" value="Up" onclick="{
+        const img = document.getElementById('myImg01');
+        img.style.top = (parseInt(img.style.top) || 0) - 10 + 'px';
+        myCheckHit();
+        myCheckWin();
+    }">
+
+    <input type="button" value="Down" onclick="{
+        const img = document.getElementById('myImg01');
+        img.style.top = (parseInt(img.style.top) || 0) + 10 + 'px';
+        myCheckHit();
+        myCheckWin();
+    }">
+</div>
