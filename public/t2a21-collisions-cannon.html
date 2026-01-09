@@ -1,5 +1,5 @@
 <script>
-function myHitOther(my1, my2, my3){
+function myHitOther(my1, my2){
     
     const e1 = document.getElementById(my1);
     const e2 = document.getElementById(my2);
@@ -41,14 +41,46 @@ function myHitOther(my1, my2, my3){
     }
     return false;
 }
-    
+function myHitWin(my1, my3){
+        const e1 = document.getElementById(my1);
+        const e3 = document.getElementById(my3);
 
+    let left1 = parseInt(e1.style.left);
+    let right1 = left1 + parseInt(e1.style.width);
+    let top1 = parseInt(e1.style.top);    
+    let bottom1 = top1 + parseInt(e1.style.height)
+
+    let left3 = parseInt(e3.style.left);
+    let right3 = left3 + parseInt(e3.style.width);
+    let top3 = parseInt(e3.style.top);    
+    let bottom3 = top3 + parseInt(e3.style.height);
+
+    if (
+        (right1 >= left3) &&             
+        (bottom1 >= top3) &&
+        (left1 <= right3) && 
+        (top1 <= bottom3)
+    ){
+        return true;
+    }
+    return false;
+}
+    
+    
 function myCheckHit(){
-    if ( myHitOther('myImg01','myImg02', 'myImg03') ){
+    if ( myHitOther('myImg01','myImg02',) ){
         console.log('you lose - collision detected!');
         document.getElementById('myImg01').style.left = '20px';
         location = 't2a13-keydown.html';
         alert("You died.")
+    }
+}
+function myCheckWin(){
+    if ( myHitOther('myImg01','myImg03',) ){
+        console.log('you WIN - WIN detected!');
+        document.getElementById('myImg01').style.left = '20px';
+        location = 't2a13-keydown.html';
+        alert("You WON!!!?!?!?!??!")
     }
 }
 </script>
