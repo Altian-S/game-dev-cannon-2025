@@ -22,7 +22,13 @@
   }, 100)
     
 }">
-
+<input type=button value="Auto Background Right" onclick="{
+  clearInterval(myClock)
+  myClock = setInterval(function(){
+     document.getElementById('myButton01').click() 
+  }, -100)
+    
+}">
 <input type=button value="Image Right" onclick="{
   document.getElementById('myImage01').style.left = parseInt(document.getElementById('myImage01').style.left) + 10 + 'px'
 }"><br><br>
