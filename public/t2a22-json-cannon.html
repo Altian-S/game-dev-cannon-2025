@@ -1,25 +1,43 @@
  <h1 align="center">t2a22-json-Cannon.html</h1>
 
-  <script>
-    async function fetchData(url){
+<script>
+  async function fetchData(url) {
+    if (!url) return;
+
+    try {
       const response = await fetch(url);
-      const data =  await response.json();
-      console.log(data);
+      const data = await response.json();
+
+      // 1. Handle if the API returns an Array (like the Cat API does)
+      const result = Array.isArray(data) ? data[0] : data;
+
+      // 2. Look for the image URL in common property names
+      const imageUrl = result.image || result.url || result.message;
 
       const myJson = JSON.stringify(data, null, 2);
-      document.getElementById('myDiv1').innerHTML = `<pre>${myJson}</pre>`;
+      const displayDiv = document.getElementById('myDiv1');
 
-      document.getElementById('myDiv1').innerHTML += `<img src="${data.image}" alt="Random Image" style="max-width: 100%; height: auto;">`;
-    
-   }
+      displayDiv.innerHTML = `<pre>${myJson}</pre>`;
+      
+      if (imageUrl) {
+        displayDiv.innerHTML += `<img src="${imageUrl}" alt="Random Image" style="max-width: 300px;">`;
+      } else {
+        displayDiv.innerHTML += `<p style="color:red">Could not find image key in JSON.</p>`;
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      document.getElementById('myDiv1').innerHTML = `<p style="color:red">Error: ${error.message}<br>This is likely a CORS block from the API provider.</p>`;
+    }
+  }
+</script>
 
-  </script>
+<button onClick="fetchData(document.getElementById('mySelect').value)">New Image</button>
+<div id="myDiv1" style="margin-top: 20px;"></div>
 
-
-  <select id="mySelect" size="1" onchange="fetchData(this.value)">
-    <option ></option>   
-    <option value="https://randomfox.ca/floof/">randomfox</option>
-    <option value="https://random-d.uk/api/v2/random">randomDuck</option>
-  </select><br><br>
-  <button onClick="fetchData(mySelect.value)">newImage</button>
-  <div id="myDiv1">...</div>
+<select id="mySelect" onchange="fetchData(this.value)">
+  <option value=""></option>   
+  <option value="https://randomfox.ca/floof/">Fox (data.image)</option>
+  <option value="https://dog.ceo/api/breeds/image/random">Dog (data.message)</option>
+  <option value="https://api.thecatapi.com/v1/images/search">Cat (Array[0].url)</option>
+  <option value="https://some-random-api.com/animal/bird">Bird/Duck (data.image)</option>
+</select>
